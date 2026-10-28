@@ -1,11 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=ising-fig3
 #SBATCH --array=0-3
-#SBATCH --account=prjs1237
-#SBATCH --partition=gpu
+#SBATCH --partition=gpu_a100
 #SBATCH --gres=gpu:1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=24G
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=120G
 #SBATCH --time=08:00:00
 #SBATCH --output=/projects/prjs1237/project/tabpfgen/discrete-langevin/slurm/logs/%x-%A_%a.out
 #SBATCH --error=/projects/prjs1237/project/tabpfgen/discrete-langevin/slurm/logs/%x-%A_%a.err

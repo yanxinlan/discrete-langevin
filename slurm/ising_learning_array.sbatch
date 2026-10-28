@@ -1,12 +1,14 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #SBATCH --job-name=ising-learn
 #SBATCH --array=0-11
+#SBATCH --partition=gpu_a100
 #SBATCH --gres=gpu:1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=24G
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=120G
 #SBATCH --time=24:00:00
-#SBATCH --output=slurm/logs/%x-%A_%a.out
-#SBATCH --error=slurm/logs/%x-%A_%a.err
+#SBATCH --output=/projects/prjs1237/project/tabpfgen/discrete-langevin/slurm/logs/%x-%A_%a.out
+#SBATCH --error=/projects/prjs1237/project/tabpfgen/discrete-langevin/slurm/logs/%x-%A_%a.err
 
 set -euo pipefail
 
