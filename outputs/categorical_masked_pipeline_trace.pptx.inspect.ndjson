@@ -1,0 +1,607 @@
+{"kind":"deck","id":"pr/lqvduv","name":"Deck"}
+{"kind":"layout","layoutId":"aebd80f3-82c5-49b0-9723-186a479318f4","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"76f97f07-b0bf-4f47-95fe-9d2e8500d664","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/ccirjk","slide":1,"title":"Masked Categorical Sampling Pipeline","textShapes":3}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":1,"text":"Masked Categorical Sampling Pipeline","textPreview":"Masked Categorical Sampling Pipeline","textChars":36,"textLines":1,"bbox":[54,90,1050,70]}
+{"kind":"textbox","id":"sh/nih4byhg","slide":1,"text":"A code-level trace from raw categorical data to the next accepted sample","textPreview":"A code-level trace from raw categorical data to the next accepted sample","textChars":72,"textLines":1,"bbox":[54,172,960,42]}
+{"kind":"shape","id":"sh/yxobm58z","slide":1,"bbox":[54,252,740,3]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":1,"text":"Running example: B=2 samples, D=3 features, cardinalities=[2,4,3], max_cls=4","textPreview":"Running example: B=2 samples, D=3 features, cardinalities=[2,4,3], max_cls=4","textChars":76,"textLines":1,"bbox":[54,315,980,42]}
+{"kind":"notes","id":"nt/ccirjk","slide":1,"text":""}
+{"kind":"slide","id":"sl/ubsc30","slide":2,"title":"ORIENTATION","textShapes":27}
+{"kind":"textbox","id":"sh/8bat47y1","slide":2,"text":"ORIENTATION","textPreview":"ORIENTATION","textChars":11,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/jqh0fepk","slide":2,"text":"The trace follows the categorical state, not the flattened vector","textPreview":"The trace follows the categorical state, not the flattened vector","textChars":65,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/q5o7qpg3","slide":2,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/18jqh0fe","slide":2,"bbox":[70,175,180,36]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":2,"text":"Stage","textPreview":"Stage","textChars":5,"textLines":1,"bbox":[78,183,164,28]}
+{"kind":"shape","id":"sh/j2t83itg","slide":2,"bbox":[250,175,220,36]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":2,"text":"Main tensor","textPreview":"Main tensor","textChars":11,"textLines":1,"bbox":[258,183,204,28]}
+{"kind":"shape","id":"sh/1cfa9w3m","slide":2,"bbox":[470,175,170,36]}
+{"kind":"textbox","id":"sh/crmhk3q5","slide":2,"text":"Shape","textPreview":"Shape","textChars":5,"textLines":1,"bbox":[478,183,154,28]}
+{"kind":"shape","id":"sh/2t83itgf","slide":2,"bbox":[640,175,570,36]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":2,"text":"What changes","textPreview":"What changes","textChars":12,"textLines":1,"bbox":[648,183,554,28]}
+{"kind":"shape","id":"sh/kzupwb2h","slide":2,"bbox":[70,211,180,52.8]}
+{"kind":"textbox","id":"sh/9knih4by","slide":2,"text":"Raw data","textPreview":"Raw data","textChars":8,"textLines":1,"bbox":[78,218,164,44.8]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":2,"bbox":[250,211,220,52.8]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":2,"text":"raw rows","textPreview":"raw rows","textChars":8,"textLines":1,"bbox":[258,218,204,44.8]}
+{"kind":"shape","id":"sh/kb6xkf6d","slide":2,"bbox":[470,211,170,52.8]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":2,"text":"(B, D)","textPreview":"(B, D)","textChars":6,"textLines":1,"bbox":[478,218,154,44.8]}
+{"kind":"shape","id":"sh/2hwfyxob","slide":2,"bbox":[640,211,570,52.8]}
+{"kind":"textbox","id":"sh/r2p8nqxs","slide":2,"text":"text/ordinal values are mapped to class ids","textPreview":"text/ordinal values are mapped to class ids","textChars":43,"textLines":1,"bbox":[648,218,554,44.8]}
+{"kind":"shape","id":"sh/j2t83itg","slide":2,"bbox":[70,263.8,180,52.8]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":2,"text":"Sampler state","textPreview":"Sampler state","textChars":13,"textLines":1,"bbox":[78,270.8,164,44.8]}
+{"kind":"shape","id":"sh/18jqh0fe","slide":2,"bbox":[250,263.8,220,52.8]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":2,"text":"x_int","textPreview":"x_int","textChars":5,"textLines":1,"bbox":[258,270.8,204,44.8]}
+{"kind":"shape","id":"sh/jqh0fepk","slide":2,"bbox":[470,263.8,170,52.8]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":2,"text":"(B, D)","textPreview":"(B, D)","textChars":6,"textLines":1,"bbox":[478,270.8,154,44.8]}
+{"kind":"shape","id":"sh/1w7mp0bi","slide":2,"bbox":[640,263.8,570,52.8]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":2,"text":"one integer per feature","textPreview":"one integer per feature","textChars":23,"textLines":1,"bbox":[648,270.8,554,44.8]}
+{"kind":"shape","id":"sh/ji5snelo","slide":2,"bbox":[70,316.6,180,52.8]}
+{"kind":"textbox","id":"sh/uxc3ylc7","slide":2,"text":"Model input","textPreview":"Model input","textChars":11,"textLines":1,"bbox":[78,323.6,164,44.8]}
+{"kind":"shape","id":"sh/4vmtwra5","slide":2,"bbox":[250,316.6,220,52.8]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":2,"text":"x_oh","textPreview":"x_oh","textChars":4,"textLines":1,"bbox":[258,323.6,204,44.8]}
+{"kind":"shape","id":"sh/mp0bi9s3","slide":2,"bbox":[470,316.6,170,52.8]}
+{"kind":"textbox","id":"sh/bat47y1k","slide":2,"text":"(B, D, K)","textPreview":"(B, D, K)","textChars":9,"textLines":1,"bbox":[478,323.6,154,44.8]}
+{"kind":"shape","id":"sh/47y1kre1","slide":2,"bbox":[640,316.6,570,52.8]}
+{"kind":"textbox","id":"sh/tsvu9kni","slide":2,"text":"temporary padded one-hot","textPreview":"temporary padded one-hot","textChars":24,"textLines":1,"bbox":[648,323.6,554,44.8]}
+{"kind":"shape","id":"sh/m1cfa9w3","slide":2,"bbox":[70,369.4,180,52.8]}
+{"kind":"textbox","id":"sh/bm58z25k","slide":2,"text":"Proposal","textPreview":"Proposal","textChars":8,"textLines":1,"bbox":[78,376.4,164,44.8]}
+{"kind":"shape","id":"sh/4byhgn29","slide":2,"bbox":[250,369.4,220,52.8]}
+{"kind":"textbox","id":"sh/twra5gbq","slide":2,"text":"x_delta_int","textPreview":"x_delta_int","textChars":11,"textLines":1,"bbox":[258,376.4,204,44.8]}
+{"kind":"shape","id":"sh/5o7qpg3e","slide":2,"bbox":[470,369.4,170,52.8]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":2,"text":"(B, D)","textPreview":"(B, D)","textChars":6,"textLines":1,"bbox":[478,376.4,154,44.8]}
+{"kind":"shape","id":"sh/nih4byhg","slide":2,"bbox":[640,369.4,570,52.8]}
+{"kind":"textbox","id":"sh/yxobm58z","slide":2,"text":"one or more class ids may change","textPreview":"one or more class ids may change","textChars":32,"textLines":1,"bbox":[648,376.4,554,44.8]}
+{"kind":"shape","id":"sh/9cvixcze","slide":2,"bbox":[70,422.2,180,52.8]}
+{"kind":"textbox","id":"sh/gr2p8nqx","slide":2,"text":"Next state","textPreview":"Next state","textChars":10,"textLines":1,"bbox":[78,429.2,164,44.8]}
+{"kind":"shape","id":"sh/r65wjudg","slide":2,"bbox":[250,422.2,220,52.8]}
+{"kind":"textbox","id":"sh/ylc7u54z","slide":2,"text":"x_next","textPreview":"x_next","textChars":6,"textLines":1,"bbox":[258,429.2,204,44.8]}
+{"kind":"shape","id":"sh/90je9cvi","slide":2,"bbox":[470,422.2,170,52.8]}
+{"kind":"textbox","id":"sh/gfmlkjm1","slide":2,"text":"(B, D)","textPreview":"(B, D)","textChars":6,"textLines":1,"bbox":[478,429.2,154,44.8]}
+{"kind":"shape","id":"sh/a1gvy90j","slide":2,"bbox":[640,422.2,570,52.8]}
+{"kind":"textbox","id":"sh/zidonyd0","slide":2,"text":"accepted proposal or old state","textPreview":"accepted proposal or old state","textChars":30,"textLines":1,"bbox":[648,429.2,554,44.8]}
+{"kind":"shape","id":"sh/s36hcrmh","slide":2,"bbox":[110,525,1060,70]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":2,"text":"Code evidence: CategoricalExample/samplers.py keeps x as integer labels and calls to_one_hot only when scoring. My modification: add per-feature cardinalities and a validity mask.","textPreview":"Code evidence: CategoricalExample/samplers.py keeps x as integer labels and calls to_one_hot only when scoring. My modification: add per-...","textChars":179,"textLines":1,"bbox":[124,537,1032,50]}
+{"kind":"notes","id":"nt/ubsc30","slide":2,"text":""}
+{"kind":"slide","id":"sl/jol0ze","slide":3,"title":"Input setup","textShapes":2}
+{"kind":"textbox","id":"sh/g7adsji5","slide":3,"text":"Input setup","textPreview":"Input setup","textChars":11,"textLines":1,"bbox":[70,210,960,72]}
+{"kind":"shape","id":"sh/rmhk3q5o","slide":3,"bbox":[70,330,640,3]}
+{"kind":"textbox","id":"sh/y1kre1w7","slide":3,"text":"The sampler starts from integer category labels; padding is only introduced when the model needs a rectangular tensor.","textPreview":"The sampler starts from integer category labels; padding is only introduced when the model needs a rectangular tensor.","textChars":118,"textLines":1,"bbox":[70,372,900,82]}
+{"kind":"notes","id":"nt/jol0ze","slide":3,"text":""}
+{"kind":"slide","id":"sl/oh5c2r","slide":4,"title":"INPUT","textShapes":24}
+{"kind":"textbox","id":"sh/fyxobm58","slide":4,"text":"INPUT","textPreview":"INPUT","textChars":5,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/8jqh0fep","slide":4,"text":"Step 1 maps each feature value to an integer class","textPreview":"Step 1 maps each feature value to an integer class","textChars":50,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/x4nap4r6","slide":4,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/qpg3ex0n","slide":4,"bbox":[65,178,180,36]}
+{"kind":"textbox","id":"sh/fa9w3m94","slide":4,"text":"Feature","textPreview":"Feature","textChars":7,"textLines":1,"bbox":[73,186,164,28]}
+{"kind":"shape","id":"sh/8v6psfil","slide":4,"bbox":[245,178,210,36]}
+{"kind":"textbox","id":"sh/xczed8v6","slide":4,"text":"Type","textPreview":"Type","textChars":4,"textLines":1,"bbox":[253,186,194,28]}
+{"kind":"shape","id":"sh/qtcj6tov","slide":4,"bbox":[455,178,300,36]}
+{"kind":"textbox","id":"sh/je9cvixc","slide":4,"text":"Example values","textPreview":"Example values","textChars":14,"textLines":1,"bbox":[463,186,284,28]}
+{"kind":"shape","id":"sh/nih4byhg","slide":4,"bbox":[755,178,300,36]}
+{"kind":"textbox","id":"sh/yxobm58z","slide":4,"text":"Class ids","textPreview":"Class ids","textChars":9,"textLines":1,"bbox":[763,186,284,28]}
+{"kind":"shape","id":"sh/5o7qpg3e","slide":4,"bbox":[1055,178,160,36]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":4,"text":"Cardinality","textPreview":"Cardinality","textChars":11,"textLines":1,"bbox":[1063,186,144,28]}
+{"kind":"shape","id":"sh/r65wjudg","slide":4,"bbox":[65,214,180,58]}
+{"kind":"textbox","id":"sh/ylc7u54z","slide":4,"text":"A","textPreview":"A","textChars":1,"textLines":1,"bbox":[73,221,164,50]}
+{"kind":"shape","id":"sh/9cvixcze","slide":4,"bbox":[245,214,210,58]}
+{"kind":"textbox","id":"sh/gr2p8nqx","slide":4,"text":"text categorical","textPreview":"text categorical","textChars":16,"textLines":1,"bbox":[253,221,194,50]}
+{"kind":"shape","id":"sh/rytsvu9k","slide":4,"bbox":[455,214,300,58]}
+{"kind":"textbox","id":"sh/yd0z6103","slide":4,"text":"red, blue","textPreview":"red, blue","textChars":9,"textLines":1,"bbox":[463,221,284,50]}
+{"kind":"shape","id":"sh/a9w3m94f","slide":4,"bbox":[755,214,300,58]}
+{"kind":"textbox","id":"sh/zupwb2hw","slide":4,"text":"red=0, blue=1","textPreview":"red=0, blue=1","textChars":13,"textLines":1,"bbox":[763,221,284,50]}
+{"kind":"shape","id":"sh/sfil0rqd","slide":4,"bbox":[1055,214,160,58]}
+{"kind":"textbox","id":"sh/h0fepkzu","slide":4,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[1063,221,144,50]}
+{"kind":"shape","id":"sh/al87ed8b","slide":4,"bbox":[65,272,180,58]}
+{"kind":"textbox","id":"sh/z61032ls","slide":4,"text":"B","textPreview":"B","textChars":1,"textLines":1,"bbox":[73,279,164,50]}
+{"kind":"shape","id":"sh/orytsvu9","slide":4,"bbox":[245,272,210,58]}
+{"kind":"textbox","id":"sh/hcrmhk3q","slide":4,"text":"ordinal integer","textPreview":"ordinal integer","textChars":15,"textLines":1,"bbox":[253,279,194,50]}
+{"kind":"shape","id":"sh/6xkf6dcb","slide":4,"bbox":[455,272,300,58]}
+{"kind":"textbox","id":"sh/zed8v6ps","slide":4,"text":"0, 1, 2, 3","textPreview":"0, 1, 2, 3","textChars":10,"textLines":1,"bbox":[463,279,284,50]}
+{"kind":"shape","id":"sh/pg3ex0nu","slide":4,"bbox":[755,272,300,58]}
+{"kind":"textbox","id":"sh/wval87ed","slide":4,"text":"same ids","textPreview":"same ids","textChars":8,"textLines":1,"bbox":[763,279,284,50]}
+{"kind":"shape","id":"sh/7adsji5s","slide":4,"bbox":[1055,272,160,58]}
+{"kind":"textbox","id":"sh/epkzupwb","slide":4,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[1063,279,144,50]}
+{"kind":"shape","id":"sh/psfil0rq","slide":4,"bbox":[65,330,180,58]}
+{"kind":"textbox","id":"sh/w7mp0bi9","slide":4,"text":"C","textPreview":"C","textChars":1,"textLines":1,"bbox":[73,337,164,50]}
+{"kind":"shape","id":"sh/7mp0bi9s","slide":4,"bbox":[245,330,210,58]}
+{"kind":"textbox","id":"sh/e1w7mp0b","slide":4,"text":"text categorical","textPreview":"text categorical","textChars":16,"textLines":1,"bbox":[253,337,194,50]}
+{"kind":"shape","id":"sh/l0rqd4vm","slide":4,"bbox":[455,330,300,58]}
+{"kind":"textbox","id":"sh/wfyxobm5","slide":4,"text":"low, mid, high","textPreview":"low, mid, high","textChars":14,"textLines":1,"bbox":[463,337,284,50]}
+{"kind":"shape","id":"sh/4nap4r65","slide":4,"bbox":[755,330,300,58]}
+{"kind":"textbox","id":"sh/t83itgfm","slide":4,"text":"low=0, mid=1, high=2","textPreview":"low=0, mid=1, high=2","textChars":20,"textLines":1,"bbox":[763,337,284,50]}
+{"kind":"shape","id":"sh/mhk3q5o7","slide":4,"bbox":[1055,330,160,58]}
+{"kind":"textbox","id":"sh/b2hwfyxo","slide":4,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[1063,337,144,50]}
+{"kind":"shape","id":"sh/4byhgn29","slide":4,"bbox":[250,445,780,125]}
+{"kind":"textbox","id":"sh/twra5gbq","slide":4,"text":"x_int = [[1, 2, 0],\n         [0, 3, 1]]\n\nx_int.shape = (B=2, D=3)\ncardinalities = [2, 4, 3]","textPreview":"x_int = [[1, 2, 0], |          [0, 3, 1]] |  | x_int.shape = (B=2, D=3) | cardinalities = [2, 4, 3]","textChars":91,"textLines":5,"bbox":[265,458,750,103]}
+{"kind":"shape","id":"sh/m58z25kb","slide":4,"bbox":[110,600,1060,54]}
+{"kind":"textbox","id":"sh/bq1oryts","slide":4,"text":"Code evidence: CategoricalExample uses integer x with shape (batch_size, dim). The per-feature mapping and cardinalities list are my modification for real mixed-cardinality data.","textPreview":"Code evidence: CategoricalExample uses integer x with shape (batch_size, dim). The per-feature mapping and cardinalities list are my modi...","textChars":178,"textLines":1,"bbox":[124,612,1032,34]}
+{"kind":"notes","id":"nt/oh5c2r","slide":4,"text":""}
+{"kind":"slide","id":"sl/eiynaz","slide":5,"title":"INPUT","textShapes":20}
+{"kind":"textbox","id":"sh/cvixczed","slide":5,"text":"INPUT","textPreview":"INPUT","textChars":5,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/nap4r65w","slide":5,"text":"Step 2 builds a validity mask for padded class slots","textPreview":"Step 2 builds a validity mask for padded class slots","textChars":52,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/upwb2hwf","slide":5,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/54zidony","slide":5,"bbox":[70,180,170,36]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":5,"text":"Feature","textPreview":"Feature","textChars":7,"textLines":1,"bbox":[78,188,154,28]}
+{"kind":"shape","id":"sh/nyd0z610","slide":5,"bbox":[240,180,300,36]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":5,"text":"Real classes","textPreview":"Real classes","textChars":12,"textLines":1,"bbox":[248,188,284,28]}
+{"kind":"shape","id":"sh/1032lszq","slide":5,"bbox":[540,180,290,36]}
+{"kind":"textbox","id":"sh/cfa9w3m9","slide":5,"text":"Padded width K=4","textPreview":"Padded width K=4","textChars":16,"textLines":1,"bbox":[548,188,274,28]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":5,"bbox":[830,180,380,36]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":5,"text":"valid_mask row","textPreview":"valid_mask row","textChars":14,"textLines":1,"bbox":[838,188,364,28]}
+{"kind":"shape","id":"sh/kb6xkf6d","slide":5,"bbox":[70,216,170,61.33]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":5,"text":"A","textPreview":"A","textChars":1,"textLines":1,"bbox":[78,223,154,53.33]}
+{"kind":"shape","id":"sh/2t83itgf","slide":5,"bbox":[240,216,300,61.33]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":5,"text":"0, 1","textPreview":"0, 1","textChars":4,"textLines":1,"bbox":[248,223,284,53.33]}
+{"kind":"shape","id":"sh/kzupwb2h","slide":5,"bbox":[540,216,290,61.33]}
+{"kind":"textbox","id":"sh/9knih4by","slide":5,"text":"slots 0..3","textPreview":"slots 0..3","textChars":10,"textLines":1,"bbox":[548,223,274,53.33]}
+{"kind":"shape","id":"sh/2p8nqxs7","slide":5,"bbox":[830,216,380,61.33]}
+{"kind":"textbox","id":"sh/ra5gbq1o","slide":5,"text":"[1, 1, 0, 0]","textPreview":"[1, 1, 0, 0]","textChars":12,"textLines":1,"bbox":[838,223,364,53.33]}
+{"kind":"shape","id":"sh/nyd0z610","slide":5,"bbox":[70,277.33,170,61.33]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":5,"text":"B","textPreview":"B","textChars":1,"textLines":1,"bbox":[78,284.33,154,53.33]}
+{"kind":"shape","id":"sh/54zidony","slide":5,"bbox":[240,277.33,300,61.33]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":5,"text":"0, 1, 2, 3","textPreview":"0, 1, 2, 3","textChars":10,"textLines":1,"bbox":[248,284.33,284,53.33]}
+{"kind":"shape","id":"sh/nap4r65w","slide":5,"bbox":[540,277.33,290,61.33]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":5,"text":"slots 0..3","textPreview":"slots 0..3","textChars":10,"textLines":1,"bbox":[548,284.33,274,53.33]}
+{"kind":"shape","id":"sh/5gbq1ory","slide":5,"bbox":[830,277.33,380,61.33]}
+{"kind":"textbox","id":"sh/cvixczed","slide":5,"text":"[1, 1, 1, 1]","textPreview":"[1, 1, 1, 1]","textChars":12,"textLines":1,"bbox":[838,284.33,364,53.33]}
+{"kind":"shape","id":"sh/jm1cfa9w","slide":5,"bbox":[70,338.67,170,61.33]}
+{"kind":"textbox","id":"sh/u18jqh0f","slide":5,"text":"C","textPreview":"C","textChars":1,"textLines":1,"bbox":[78,345.67,154,53.33]}
+{"kind":"shape","id":"sh/47y1kre1","slide":5,"bbox":[240,338.67,300,61.33]}
+{"kind":"textbox","id":"sh/tsvu9kni","slide":5,"text":"0, 1, 2","textPreview":"0, 1, 2","textChars":7,"textLines":1,"bbox":[248,345.67,284,53.33]}
+{"kind":"shape","id":"sh/m1cfa9w3","slide":5,"bbox":[540,338.67,290,61.33]}
+{"kind":"textbox","id":"sh/bm58z25k","slide":5,"text":"slots 0..3","textPreview":"slots 0..3","textChars":10,"textLines":1,"bbox":[548,345.67,274,53.33]}
+{"kind":"shape","id":"sh/4vmtwra5","slide":5,"bbox":[830,338.67,380,61.33]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":5,"text":"[1, 1, 1, 0]","textPreview":"[1, 1, 1, 0]","textChars":12,"textLines":1,"bbox":[838,345.67,364,53.33]}
+{"kind":"shape","id":"sh/mp0bi9s3","slide":5,"bbox":[260,465,760,96]}
+{"kind":"textbox","id":"sh/bat47y1k","slide":5,"text":"valid_mask.shape = (D=3, K=4)\n\ninvalid slots are padding,\nnot possible categories.","textPreview":"valid_mask.shape = (D=3, K=4) |  | invalid slots are padding, | not possible categories.","textChars":82,"textLines":4,"bbox":[275,478,730,74]}
+{"kind":"shape","id":"sh/4nap4r65","slide":5,"bbox":[160,595,960,50]}
+{"kind":"textbox","id":"sh/t83itgfm","slide":5,"text":"Code evidence: not present in the repo. This is my modification needed to extend CategoricalExample beyond one shared num_cls.","textPreview":"Code evidence: not present in the repo. This is my modification needed to extend CategoricalExample beyond one shared num_cls.","textChars":126,"textLines":1,"bbox":[174,607,932,30]}
+{"kind":"notes","id":"nt/eiynaz","slide":5,"text":""}
+{"kind":"slide","id":"sl/7r2y4t","slide":6,"title":"INPUT","textShapes":17}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":6,"text":"INPUT","textPreview":"INPUT","textChars":5,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/5gbq1ory","slide":6,"text":"Step 3 converts integer state to padded one-hot for the model","textPreview":"Step 3 converts integer state to padded one-hot for the model","textChars":61,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/cvixczed","slide":6,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/nyd0z610","slide":6,"bbox":[70,182,520,150]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":6,"text":"def to_padded_one_hot(x_int):\n    x_oh = zeros(B, D, K)\n    x_oh[b, d, x_int[b, d]] = 1\n    return x_oh","textPreview":"def to_padded_one_hot(x_int): |     x_oh = zeros(B, D, K) |     x_oh[b, d, x_int[b, d]] = 1 |     return x_oh","textChars":103,"textLines":4,"bbox":[85,195,490,128]}
+{"kind":"shape","id":"sh/54zidony","slide":6,"bbox":[635,185,80,36]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":6,"text":"Sample","textPreview":"Sample","textChars":6,"textLines":1,"bbox":[643,193,64,28]}
+{"kind":"shape","id":"sh/judg7ads","slide":6,"bbox":[715,185,110,36]}
+{"kind":"textbox","id":"sh/u9knih4b","slide":6,"text":"x_int row","textPreview":"x_int row","textChars":9,"textLines":1,"bbox":[723,193,94,28]}
+{"kind":"shape","id":"sh/47y1kre1","slide":6,"bbox":[825,185,125,36]}
+{"kind":"textbox","id":"sh/tsvu9kni","slide":6,"text":"x_oh row shape","textPreview":"x_oh row shape","textChars":14,"textLines":1,"bbox":[833,193,109,28]}
+{"kind":"shape","id":"sh/m1cfa9w3","slide":6,"bbox":[950,185,245,36]}
+{"kind":"textbox","id":"sh/bm58z25k","slide":6,"text":"One-hot blocks","textPreview":"One-hot blocks","textChars":14,"textLines":1,"bbox":[958,193,229,28]}
+{"kind":"shape","id":"sh/4vmtwra5","slide":6,"bbox":[635,221,80,64.5]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":6,"text":"0","textPreview":"0","textChars":1,"textLines":1,"bbox":[643,228,64,56.5]}
+{"kind":"shape","id":"sh/mp0bi9s3","slide":6,"bbox":[715,221,110,64.5]}
+{"kind":"textbox","id":"sh/bat47y1k","slide":6,"text":"[1, 2, 0]","textPreview":"[1, 2, 0]","textChars":9,"textLines":1,"bbox":[723,228,94,56.5]}
+{"kind":"shape","id":"sh/4nap4r65","slide":6,"bbox":[825,221,125,64.5]}
+{"kind":"textbox","id":"sh/t83itgfm","slide":6,"text":"(3, 4)","textPreview":"(3, 4)","textChars":6,"textLines":1,"bbox":[833,228,109,56.5]}
+{"kind":"shape","id":"sh/xs72x4na","slide":6,"bbox":[950,221,245,64.5]}
+{"kind":"textbox","id":"sh/87ed8bat","slide":6,"text":"A=[0,1,0,0], B=[0,0,1,0], C=[1,0,0,0]","textPreview":"A=[0,1,0,0], B=[0,0,1,0], C=[1,0,0,0]","textChars":37,"textLines":1,"bbox":[958,228,229,56.5]}
+{"kind":"shape","id":"sh/fmlkjm1c","slide":6,"bbox":[635,285.5,80,64.5]}
+{"kind":"textbox","id":"sh/q1orytsv","slide":6,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[643,292.5,64,56.5]}
+{"kind":"shape","id":"sh/1gvy90je","slide":6,"bbox":[715,285.5,110,64.5]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":6,"text":"[0, 3, 1]","textPreview":"[0, 3, 1]","textChars":9,"textLines":1,"bbox":[723,292.5,94,56.5]}
+{"kind":"shape","id":"sh/je9cvixc","slide":6,"bbox":[825,285.5,125,64.5]}
+{"kind":"textbox","id":"sh/qtcj6tov","slide":6,"text":"(3, 4)","textPreview":"(3, 4)","textChars":6,"textLines":1,"bbox":[833,292.5,109,56.5]}
+{"kind":"shape","id":"sh/xczed8v6","slide":6,"bbox":[950,285.5,245,64.5]}
+{"kind":"textbox","id":"sh/8v6psfil","slide":6,"text":"A=[1,0,0,0], B=[0,0,0,1], C=[0,1,0,0]","textPreview":"A=[1,0,0,0], B=[0,0,0,1], C=[0,1,0,0]","textChars":37,"textLines":1,"bbox":[958,292.5,229,56.5]}
+{"kind":"textbox","id":"sh/25kb6xkf","slide":6,"text":"Shape change: x_int (2,3) -> x_oh (2,3,4).","textPreview":"Shape change: x_int (2,3) -> x_oh (2,3,4).","textChars":42,"textLines":1,"bbox":[105,415,1020,44]}
+{"kind":"shape","id":"sh/rqd4vmtw","slide":6,"bbox":[110,520,1060,70]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":6,"text":"Code evidence: CategoricalExample/samplers.py::to_one_hot creates zeros with shape (batch, dim, num_cls). My modification replaces num_cls with K=max(cardinalities).","textPreview":"Code evidence: CategoricalExample/samplers.py::to_one_hot creates zeros with shape (batch, dim, num_cls). My modification replaces num_cl...","textChars":165,"textLines":1,"bbox":[124,532,1032,50]}
+{"kind":"notes","id":"nt/7r2y4t","slide":6,"text":""}
+{"kind":"slide","id":"sl/19xn2u","slide":7,"title":"One proposal step","textShapes":2}
+{"kind":"textbox","id":"sh/h0fepkzu","slide":7,"text":"One proposal step","textPreview":"One proposal step","textChars":17,"textLines":1,"bbox":[70,210,960,72]}
+{"kind":"shape","id":"sh/a9w3m94f","slide":7,"bbox":[70,330,640,3]}
+{"kind":"textbox","id":"sh/zupwb2hw","slide":7,"text":"A DMALA-like categorical step scores the current state, computes class-wise changes, masks invalid slots, samples a proposal, and applies MH correction.","textPreview":"A DMALA-like categorical step scores the current state, computes class-wise changes, masks invalid slots, samples a proposal, and applies...","textChars":152,"textLines":1,"bbox":[70,372,900,82]}
+{"kind":"notes","id":"nt/19xn2u","slide":7,"text":""}
+{"kind":"slide","id":"sl/4ivw1x","slide":8,"title":"SCORE","textShapes":16}
+{"kind":"textbox","id":"sh/pwb2hwfy","slide":8,"text":"SCORE","textPreview":"SCORE","textChars":5,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/i5sneloj","slide":8,"text":"Step 4 evaluates the model on the current padded one-hot state","textPreview":"Step 4 evaluates the model on the current padded one-hot state","textChars":62,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/7qpg3ex0","slide":8,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/wjudg7ad","slide":8,"bbox":[95,185,570,150]}
+{"kind":"textbox","id":"sh/p4r65wju","slide":8,"text":"x_cur_oh = to_padded_one_hot(x_int)\nscore_cur = model(x_cur_oh)\n\nx_cur_oh.shape = (2, 3, 4)\nscore_cur.shape = (2,)","textPreview":"x_cur_oh = to_padded_one_hot(x_int) | score_cur = model(x_cur_oh) |  | x_cur_oh.shape = (2, 3, 4) | score_cur.shape = (2,)","textChars":114,"textLines":5,"bbox":[110,198,540,128]}
+{"kind":"shape","id":"sh/ed8v6psf","slide":8,"bbox":[735,190,130,36]}
+{"kind":"textbox","id":"sh/7y1kre1w","slide":8,"text":"Object","textPreview":"Object","textChars":6,"textLines":1,"bbox":[743,198,114,28]}
+{"kind":"shape","id":"sh/0nuxc3yl","slide":8,"bbox":[865,190,110,36]}
+{"kind":"textbox","id":"sh/p8nqxs72","slide":8,"text":"Shape","textPreview":"Shape","textChars":5,"textLines":1,"bbox":[873,198,94,28]}
+{"kind":"shape","id":"sh/xobm58z2","slide":8,"bbox":[975,190,180,36]}
+{"kind":"textbox","id":"sh/83itgfml","slide":8,"text":"Meaning","textPreview":"Meaning","textChars":7,"textLines":1,"bbox":[983,198,164,28]}
+{"kind":"shape","id":"sh/fil0rqd4","slide":8,"bbox":[735,226,130,38]}
+{"kind":"textbox","id":"sh/qxs72x4n","slide":8,"text":"x_int","textPreview":"x_int","textChars":5,"textLines":1,"bbox":[743,233,114,30]}
+{"kind":"shape","id":"sh/x0nuxc3y","slide":8,"bbox":[865,226,110,38]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":8,"text":"(2,3)","textPreview":"(2,3)","textChars":5,"textLines":1,"bbox":[873,233,94,30]}
+{"kind":"shape","id":"sh/fu18jqh0","slide":8,"bbox":[975,226,180,38]}
+{"kind":"textbox","id":"sh/m94fu18j","slide":8,"text":"current categorical state","textPreview":"current categorical state","textChars":25,"textLines":1,"bbox":[983,233,164,30]}
+{"kind":"shape","id":"sh/xc3ylc7u","slide":8,"bbox":[735,264,130,38]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":8,"text":"x_cur_oh","textPreview":"x_cur_oh","textChars":8,"textLines":1,"bbox":[743,271,114,30]}
+{"kind":"shape","id":"sh/032lszqt","slide":8,"bbox":[865,264,110,38]}
+{"kind":"textbox","id":"sh/tovahoza","slide":8,"text":"(2,3,4)","textPreview":"(2,3,4)","textChars":7,"textLines":1,"bbox":[873,271,94,30]}
+{"kind":"shape","id":"sh/ixczed8v","slide":8,"bbox":[975,264,180,38]}
+{"kind":"textbox","id":"sh/bi9s36hc","slide":8,"text":"temporary model input","textPreview":"temporary model input","textChars":21,"textLines":1,"bbox":[983,271,164,30]}
+{"kind":"shape","id":"sh/0fepkzup","slide":8,"bbox":[735,302,130,38]}
+{"kind":"textbox","id":"sh/p0bi9s36","slide":8,"text":"score_cur","textPreview":"score_cur","textChars":9,"textLines":1,"bbox":[743,309,114,30]}
+{"kind":"shape","id":"sh/i9s36hcr","slide":8,"bbox":[865,302,110,38]}
+{"kind":"textbox","id":"sh/bulwval8","slide":8,"text":"(2,)","textPreview":"(2,)","textChars":4,"textLines":1,"bbox":[873,309,94,30]}
+{"kind":"shape","id":"sh/0je9cvix","slide":8,"bbox":[975,302,180,38]}
+{"kind":"textbox","id":"sh/t47y1kre","slide":8,"text":"one energy/log-score per sample","textPreview":"one energy/log-score per sample","textChars":31,"textLines":1,"bbox":[983,309,164,30]}
+{"kind":"shape","id":"sh/zqtcj6to","slide":8,"bbox":[110,500,1060,70]}
+{"kind":"textbox","id":"sh/65wjudg7","slide":8,"text":"Code evidence: CategoricalExample calls model(self.to_one_hot(x)) inside the sampler. The exact model meaning depends on the experiment, but the shape is one score per row.","textPreview":"Code evidence: CategoricalExample calls model(self.to_one_hot(x)) inside the sampler. The exact model meaning depends on the experiment, ...","textChars":172,"textLines":1,"bbox":[124,512,1032,50]}
+{"kind":"notes","id":"nt/4ivw1x","slide":8,"text":""}
+{"kind":"slide","id":"sl/0t46nu","slide":9,"title":"GRADIENT","textShapes":13}
+{"kind":"textbox","id":"sh/fa9w3m94","slide":9,"text":"GRADIENT","textPreview":"GRADIENT","textChars":8,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/8v6psfil","slide":9,"text":"Step 5 computes one gradient value for every feature/class slot","textPreview":"Step 5 computes one gradient value for every feature/class slot","textChars":63,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/xczed8v6","slide":9,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/qd4vmtwr","slide":9,"bbox":[70,185,610,120]}
+{"kind":"textbox","id":"sh/fyxobm58","slide":9,"text":"x_cur_oh = x_cur_oh.requires_grad_()\ngx = grad(model(x_cur_oh).sum(), x_cur_oh)[0]\n\ngx.shape = (B=2, D=3, K=4)","textPreview":"x_cur_oh = x_cur_oh.requires_grad_() | gx = grad(model(x_cur_oh).sum(), x_cur_oh)[0] |  | gx.shape = (B=2, D=3, K=4)","textChars":110,"textLines":4,"bbox":[85,198,580,98]}
+{"kind":"shape","id":"sh/8jqh0fep","slide":9,"bbox":[730,185,130,36]}
+{"kind":"textbox","id":"sh/x4nap4r6","slide":9,"text":"Index","textPreview":"Index","textChars":5,"textLines":1,"bbox":[738,193,114,28]}
+{"kind":"shape","id":"sh/q1orytsv","slide":9,"bbox":[860,185,330,36]}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":9,"text":"Empirical meaning","textPreview":"Empirical meaning","textChars":17,"textLines":1,"bbox":[868,193,314,28]}
+{"kind":"shape","id":"sh/jqh0fepk","slide":9,"bbox":[730,221,130,36.33]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":9,"text":"gx[0,0,1]","textPreview":"gx[0,0,1]","textChars":9,"textLines":1,"bbox":[738,228,114,28.33]}
+{"kind":"shape","id":"sh/1w7mp0bi","slide":9,"bbox":[860,221,330,36.33]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":9,"text":"effect of sample 0, feature A, class 1","textPreview":"effect of sample 0, feature A, class 1","textChars":38,"textLines":1,"bbox":[868,228,314,28.33]}
+{"kind":"shape","id":"sh/j2t83itg","slide":9,"bbox":[730,257.33,130,36.33]}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":9,"text":"gx[0,1,2]","textPreview":"gx[0,1,2]","textChars":9,"textLines":1,"bbox":[738,264.33,114,28.33]}
+{"kind":"shape","id":"sh/18jqh0fe","slide":9,"bbox":[860,257.33,330,36.33]}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":9,"text":"effect of sample 0, feature B, class 2","textPreview":"effect of sample 0, feature B, class 2","textChars":38,"textLines":1,"bbox":[868,264.33,314,28.33]}
+{"kind":"shape","id":"sh/j6tovaho","slide":9,"bbox":[730,293.67,130,36.33]}
+{"kind":"textbox","id":"sh/ulwval87","slide":9,"text":"gx[1,2,3]","textPreview":"gx[1,2,3]","textChars":9,"textLines":1,"bbox":[738,300.67,114,28.33]}
+{"kind":"shape","id":"sh/ed8v6psf","slide":9,"bbox":[860,293.67,330,36.33]}
+{"kind":"textbox","id":"sh/7y1kre1w","slide":9,"text":"padding slot for C; computed but later masked","textPreview":"padding slot for C; computed but later masked","textChars":45,"textLines":1,"bbox":[868,300.67,314,28.33]}
+{"kind":"textbox","id":"sh/wjudg7ad","slide":9,"text":"The gradient tensor has a slot for every padded class, even when that class is invalid for a feature.","textPreview":"The gradient tensor has a slot for every padded class, even when that class is invalid for a feature.","textChars":101,"textLines":1,"bbox":[105,415,1060,54]}
+{"kind":"shape","id":"sh/p4r65wju","slide":9,"bbox":[110,535,1060,60]}
+{"kind":"textbox","id":"sh/i5sneloj","slide":9,"text":"Code evidence: utils.approx_difference_function and categorical samplers use gradients with the same logic: estimate how the score changes when coordinates/classes change.","textPreview":"Code evidence: utils.approx_difference_function and categorical samplers use gradients with the same logic: estimate how the score change...","textChars":171,"textLines":1,"bbox":[124,547,1032,40]}
+{"kind":"notes","id":"nt/0t46nu","slide":9,"text":""}
+{"kind":"slide","id":"sl/thf9sb","slide":10,"title":"GRADIENT","textShapes":14}
+{"kind":"textbox","id":"sh/ahoza1gv","slide":10,"text":"GRADIENT","textPreview":"GRADIENT","textChars":8,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/l87ed8ba","slide":10,"text":"Step 6 subtracts the active-class gradient to form move scores","textPreview":"Step 6 subtracts the active-class gradient to form move scores","textChars":62,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/sneloj2t","slide":10,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/3ex0nuxc","slide":10,"bbox":[70,178,620,145]}
+{"kind":"textbox","id":"sh/at47y1kr","slide":10,"text":"gx_cur = (gx * x_cur_oh).sum(-1)[:, :, None]\nforward_delta = gx - gx_cur\n\ngx_cur.shape = (2, 3, 1)\nforward_delta.shape = (2, 3, 4)","textPreview":"gx_cur = (gx * x_cur_oh).sum(-1)[:, :, None] | forward_delta = gx - gx_cur |  | gx_cur.shape = (2, 3, 1) | forward_delta.shape = (2, 3, 4)","textChars":130,"textLines":5,"bbox":[85,191,590,123]}
+{"kind":"shape","id":"sh/lkjm1cfa","slide":10,"bbox":[750,182,250,36]}
+{"kind":"textbox","id":"sh/szqtcj6t","slide":10,"text":"For sample 0, feature B","textPreview":"For sample 0, feature B","textChars":23,"textLines":1,"bbox":[758,190,234,28]}
+{"kind":"shape","id":"sh/3itgfmlk","slide":10,"bbox":[1000,182,180,36]}
+{"kind":"textbox","id":"sh/ex0nuxc3","slide":10,"text":"Value","textPreview":"Value","textChars":5,"textLines":1,"bbox":[1008,190,164,28]}
+{"kind":"shape","id":"sh/wfyxobm5","slide":10,"bbox":[750,218,250,38.5]}
+{"kind":"textbox","id":"sh/l0rqd4vm","slide":10,"text":"current class","textPreview":"current class","textChars":13,"textLines":1,"bbox":[758,225,234,30.5]}
+{"kind":"shape","id":"sh/ed8bat47","slide":10,"bbox":[1000,218,180,38.5]}
+{"kind":"textbox","id":"sh/7u54zido","slide":10,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[1008,225,164,30.5]}
+{"kind":"shape","id":"sh/wra5gbq1","slide":10,"bbox":[750,256.5,250,38.5]}
+{"kind":"textbox","id":"sh/lc7u54zi","slide":10,"text":"gx[0,1,:]","textPreview":"gx[0,1,:]","textChars":9,"textLines":1,"bbox":[758,263.5,234,30.5]}
+{"kind":"shape","id":"sh/eloj2t83","slide":10,"bbox":[1000,256.5,180,38.5]}
+{"kind":"textbox","id":"sh/36hcrmhk","slide":10,"text":"[0.2, 0.7, 1.1, -0.1]","textPreview":"[0.2, 0.7, 1.1, -0.1]","textChars":21,"textLines":1,"bbox":[1008,263.5,164,30.5]}
+{"kind":"shape","id":"sh/wval87ed","slide":10,"bbox":[750,295,250,38.5]}
+{"kind":"textbox","id":"sh/pg3ex0nu","slide":10,"text":"gx_cur[0,1,0]","textPreview":"gx_cur[0,1,0]","textChars":13,"textLines":1,"bbox":[758,302,234,30.5]}
+{"kind":"shape","id":"sh/9knih4by","slide":10,"bbox":[1000,295,180,38.5]}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":10,"text":"1.1","textPreview":"1.1","textChars":3,"textLines":1,"bbox":[1008,302,164,30.5]}
+{"kind":"shape","id":"sh/re1w7mp0","slide":10,"bbox":[750,333.5,250,38.5]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":10,"text":"forward_delta[0,1,:]","textPreview":"forward_delta[0,1,:]","textChars":20,"textLines":1,"bbox":[758,340.5,234,30.5]}
+{"kind":"shape","id":"sh/9w3m94fu","slide":10,"bbox":[1000,333.5,180,38.5]}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":10,"text":"[-0.9, -0.4, 0.0, -1.2]","textPreview":"[-0.9, -0.4, 0.0, -1.2]","textChars":23,"textLines":1,"bbox":[1008,340.5,164,30.5]}
+{"kind":"shape","id":"sh/rqd4vmtw","slide":10,"bbox":[110,500,1060,70]}
+{"kind":"textbox","id":"sh/25kb6xkf","slide":10,"text":"Meaning: each class is compared with the currently active class. Broadcasting lets (2,3,4) - (2,3,1) subtract the active-class value across all K class slots.","textPreview":"Meaning: each class is compared with the currently active class. Broadcasting lets (2,3,4) - (2,3,1) subtract the active-class value acro...","textChars":158,"textLines":1,"bbox":[124,512,1032,50]}
+{"kind":"notes","id":"nt/thf9sb","slide":10,"text":""}
+{"kind":"slide","id":"sl/p1nmyj","slide":11,"title":"PROPOSAL","textShapes":16}
+{"kind":"textbox","id":"sh/94fu18jq","slide":11,"text":"PROPOSAL","textPreview":"PROPOSAL","textChars":8,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":11,"text":"Step 7 applies the mask before making a categorical distribution","textPreview":"Step 7 applies the mask before making a categorical distribution","textChars":64,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/r2p8nqxs","slide":11,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/gvy90je9","slide":11,"bbox":[70,175,610,180]}
+{"kind":"textbox","id":"sh/9gr2p8nq","slide":11,"text":"proposal_logits = forward_delta - penalty\nproposal_logits = proposal_logits.masked_fill(\n    valid_mask[None, :, :] == 0,\n    -1e9\n)\n\nproposal_logits.shape = (2, 3, 4)","textPreview":"proposal_logits = forward_delta - penalty | proposal_logits = proposal_logits.masked_fill( |     valid_mask[None, :, :] == 0, |     -1e9 ...","textChars":167,"textLines":7,"bbox":[85,188,580,158]}
+{"kind":"shape","id":"sh/2p8nqxs7","slide":11,"bbox":[720,185,90,36]}
+{"kind":"textbox","id":"sh/ra5gbq1o","slide":11,"text":"Feature","textPreview":"Feature","textChars":7,"textLines":1,"bbox":[728,193,74,28]}
+{"kind":"shape","id":"sh/kzupwb2h","slide":11,"bbox":[810,185,205,36]}
+{"kind":"textbox","id":"sh/9knih4by","slide":11,"text":"Before mask","textPreview":"Before mask","textChars":11,"textLines":1,"bbox":[818,193,189,28]}
+{"kind":"shape","id":"sh/p8nqxs72","slide":11,"bbox":[1015,185,205,36]}
+{"kind":"textbox","id":"sh/0nuxc3yl","slide":11,"text":"After mask","textPreview":"After mask","textChars":10,"textLines":1,"bbox":[1023,193,189,28]}
+{"kind":"shape","id":"sh/72x4nap4","slide":11,"bbox":[720,221,90,51.33]}
+{"kind":"textbox","id":"sh/ih4byhgn","slide":11,"text":"A","textPreview":"A","textChars":1,"textLines":1,"bbox":[728,228,74,43.33]}
+{"kind":"shape","id":"sh/pkzupwb2","slide":11,"bbox":[810,221,205,51.33]}
+{"kind":"textbox","id":"sh/0z61032l","slide":11,"text":"[0.1, 0.0, 0.8, -0.4]","textPreview":"[0.1, 0.0, 0.8, -0.4]","textChars":21,"textLines":1,"bbox":[818,228,189,43.33]}
+{"kind":"shape","id":"sh/7ed8bat4","slide":11,"bbox":[1015,221,205,51.33]}
+{"kind":"textbox","id":"sh/itgfmlkj","slide":11,"text":"[0.1, 0.0, -inf, -inf]","textPreview":"[0.1, 0.0, -inf, -inf]","textChars":22,"textLines":1,"bbox":[1023,228,189,43.33]}
+{"kind":"shape","id":"sh/pwb2hwfy","slide":11,"bbox":[720,272.33,90,51.33]}
+{"kind":"textbox","id":"sh/0bi9s36h","slide":11,"text":"B","textPreview":"B","textChars":1,"textLines":1,"bbox":[728,279.33,74,43.33]}
+{"kind":"shape","id":"sh/sneloj2t","slide":11,"bbox":[810,272.33,205,51.33]}
+{"kind":"textbox","id":"sh/l87ed8ba","slide":11,"text":"[-0.9, -0.4, 0.0, -1.2]","textPreview":"[-0.9, -0.4, 0.0, -1.2]","textChars":23,"textLines":1,"bbox":[818,279.33,189,43.33]}
+{"kind":"shape","id":"sh/ahoza1gv","slide":11,"bbox":[1015,272.33,205,51.33]}
+{"kind":"textbox","id":"sh/32lszqtc","slide":11,"text":"[-0.9, -0.4, 0.0, -1.2]","textPreview":"[-0.9, -0.4, 0.0, -1.2]","textChars":23,"textLines":1,"bbox":[1023,279.33,189,43.33]}
+{"kind":"shape","id":"sh/szqtcj6t","slide":11,"bbox":[720,323.67,90,51.33]}
+{"kind":"textbox","id":"sh/lkjm1cfa","slide":11,"text":"C","textPreview":"C","textChars":1,"textLines":1,"bbox":[728,330.67,74,43.33]}
+{"kind":"shape","id":"sh/at47y1kr","slide":11,"bbox":[810,323.67,205,51.33]}
+{"kind":"textbox","id":"sh/3ex0nuxc","slide":11,"text":"[0.0, 0.5, -0.3, 1.4]","textPreview":"[0.0, 0.5, -0.3, 1.4]","textChars":21,"textLines":1,"bbox":[818,330.67,189,43.33]}
+{"kind":"shape","id":"sh/w3m94fu1","slide":11,"bbox":[1015,323.67,205,51.33]}
+{"kind":"textbox","id":"sh/loj2t83i","slide":11,"text":"[0.0, 0.5, -0.3, -inf]","textPreview":"[0.0, 0.5, -0.3, -inf]","textChars":22,"textLines":1,"bbox":[1023,330.67,189,43.33]}
+{"kind":"shape","id":"sh/bulwval8","slide":11,"bbox":[135,530,1010,58]}
+{"kind":"textbox","id":"sh/i9s36hcr","slide":11,"text":"Code evidence: masking is my modification. It is the key step that prevents padded classes from entering the proposal distribution.","textPreview":"Code evidence: masking is my modification. It is the key step that prevents padded classes from entering the proposal distribution.","textChars":131,"textLines":1,"bbox":[149,542,982,38]}
+{"kind":"notes","id":"nt/p1nmyj","slide":11,"text":""}
+{"kind":"slide","id":"sl/8mlhyo","slide":12,"title":"PROPOSAL","textShapes":19}
+{"kind":"textbox","id":"sh/ji5snelo","slide":12,"text":"PROPOSAL","textPreview":"PROPOSAL","textChars":8,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":12,"text":"Step 8 samples the proposal as class labels, then rebuilds one-hot","textPreview":"Step 8 samples the proposal as class labels, then rebuilds one-hot","textChars":66,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/1kre1w7m","slide":12,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/ulwval87","slide":12,"bbox":[55,175,650,205]}
+{"kind":"textbox","id":"sh/j6tovaho","slide":12,"text":"# Option A: sample one replacement move per row\nmove = Categorical(logits=flatten_valid_moves).sample()\nx_delta_int = apply_move(x_int, move)\n\n# Option B: sample a replacement class per feature\nx_delta_int[:, d] = Categorical(logits=proposal_logits[:, d, :]).sample()\n\nx_delta_int.shape = (2, 3)","textPreview":"# Option A: sample one replacement move per row | move = Categorical(logits=flatten_valid_moves).sample() | x_delta_int = apply_move(x_in...","textChars":295,"textLines":8,"bbox":[70,188,620,183]}
+{"kind":"shape","id":"sh/crmhk3q5","slide":12,"bbox":[750,190,135,36]}
+{"kind":"textbox","id":"sh/1cfa9w3m","slide":12,"text":"Object","textPreview":"Object","textChars":6,"textLines":1,"bbox":[758,198,119,28]}
+{"kind":"shape","id":"sh/qh0fepkz","slide":12,"bbox":[885,190,125,36]}
+{"kind":"textbox","id":"sh/j2t83itg","slide":12,"text":"Shape","textPreview":"Shape","textChars":5,"textLines":1,"bbox":[893,198,109,28]}
+{"kind":"shape","id":"sh/byhgn29g","slide":12,"bbox":[1010,190,170,36]}
+{"kind":"textbox","id":"sh/idonyd0z","slide":12,"text":"Example row 0","textPreview":"Example row 0","textChars":13,"textLines":1,"bbox":[1018,198,154,28]}
+{"kind":"shape","id":"sh/t47y1kre","slide":12,"bbox":[750,226,135,38.5]}
+{"kind":"textbox","id":"sh/0je9cvix","slide":12,"text":"x_int","textPreview":"x_int","textChars":5,"textLines":1,"bbox":[758,233,119,30.5]}
+{"kind":"shape","id":"sh/b6xkf6dc","slide":12,"bbox":[885,226,125,38.5]}
+{"kind":"textbox","id":"sh/il0rqd4v","slide":12,"text":"(2,3)","textPreview":"(2,3)","textChars":5,"textLines":1,"bbox":[893,233,109,30.5]}
+{"kind":"shape","id":"sh/tcj6tova","slide":12,"bbox":[1010,226,170,38.5]}
+{"kind":"textbox","id":"sh/0rqd4vmt","slide":12,"text":"[1,2,0]","textPreview":"[1,2,0]","textChars":7,"textLines":1,"bbox":[1018,233,154,30.5]}
+{"kind":"shape","id":"sh/bi9s36hc","slide":12,"bbox":[750,264.5,135,38.5]}
+{"kind":"textbox","id":"sh/ixczed8v","slide":12,"text":"sampled move","textPreview":"sampled move","textChars":12,"textLines":1,"bbox":[758,271.5,119,30.5]}
+{"kind":"shape","id":"sh/al87ed8b","slide":12,"bbox":[885,264.5,125,38.5]}
+{"kind":"textbox","id":"sh/z61032ls","slide":12,"text":"(2,) or (2,3)","textPreview":"(2,) or (2,3)","textChars":13,"textLines":1,"bbox":[893,271.5,109,30.5]}
+{"kind":"shape","id":"sh/orytsvu9","slide":12,"bbox":[1010,264.5,170,38.5]}
+{"kind":"textbox","id":"sh/hcrmhk3q","slide":12,"text":"B: 2 -> 1","textPreview":"B: 2 -> 1","textChars":9,"textLines":1,"bbox":[1018,271.5,154,30.5]}
+{"kind":"shape","id":"sh/a9w3m94f","slide":12,"bbox":[750,303,135,38.5]}
+{"kind":"textbox","id":"sh/zupwb2hw","slide":12,"text":"x_delta_int","textPreview":"x_delta_int","textChars":11,"textLines":1,"bbox":[758,310,119,30.5]}
+{"kind":"shape","id":"sh/sfil0rqd","slide":12,"bbox":[885,303,125,38.5]}
+{"kind":"textbox","id":"sh/h0fepkzu","slide":12,"text":"(2,3)","textPreview":"(2,3)","textChars":5,"textLines":1,"bbox":[893,310,109,30.5]}
+{"kind":"shape","id":"sh/65wjudg7","slide":12,"bbox":[1010,303,170,38.5]}
+{"kind":"textbox","id":"sh/zqtcj6to","slide":12,"text":"[1,1,0]","textPreview":"[1,1,0]","textChars":7,"textLines":1,"bbox":[1018,310,154,30.5]}
+{"kind":"shape","id":"sh/psfil0rq","slide":12,"bbox":[750,341.5,135,38.5]}
+{"kind":"textbox","id":"sh/w7mp0bi9","slide":12,"text":"x_delta_oh","textPreview":"x_delta_oh","textChars":10,"textLines":1,"bbox":[758,348.5,119,30.5]}
+{"kind":"shape","id":"sh/7mp0bi9s","slide":12,"bbox":[885,341.5,125,38.5]}
+{"kind":"textbox","id":"sh/e1w7mp0b","slide":12,"text":"(2,3,4)","textPreview":"(2,3,4)","textChars":7,"textLines":1,"bbox":[893,348.5,109,30.5]}
+{"kind":"shape","id":"sh/pg3ex0nu","slide":12,"bbox":[1010,341.5,170,38.5]}
+{"kind":"textbox","id":"sh/wval87ed","slide":12,"text":"padded one-hot","textPreview":"padded one-hot","textChars":14,"textLines":1,"bbox":[1018,348.5,154,30.5]}
+{"kind":"shape","id":"sh/7adsji5s","slide":12,"bbox":[115,520,1050,65]}
+{"kind":"textbox","id":"sh/epkzupwb","slide":12,"text":"Code evidence: CategoricalExample uses torch.distributions.Categorical(...).sample(). My modification defines the masking and variable-cardinality version of the logits.","textPreview":"Code evidence: CategoricalExample uses torch.distributions.Categorical(...).sample(). My modification defines the masking and variable-ca...","textChars":169,"textLines":1,"bbox":[129,532,1022,45]}
+{"kind":"notes","id":"nt/8mlhyo","slide":12,"text":""}
+{"kind":"slide","id":"sl/e0h7bv","slide":13,"title":"SCORE","textShapes":16}
+{"kind":"textbox","id":"sh/ytsvu9kn","slide":13,"text":"SCORE","textPreview":"SCORE","textChars":5,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/5kb6xkf6","slide":13,"text":"Step 9 scores the proposed state with the same model path","textPreview":"Step 9 scores the proposed state with the same model path","textChars":57,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/czed8v6p","slide":13,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/nqxs72x4","slide":13,"bbox":[120,185,1040,150]}
+{"kind":"textbox","id":"sh/u54zidon","slide":13,"text":"x_delta_oh = to_padded_one_hot(x_delta_int)\nscore_delta = model(x_delta_oh)\n\nx_delta_int.shape = (2, 3)\nx_delta_oh.shape  = (2, 3, 4)\nscore_delta.shape = (2,)","textPreview":"x_delta_oh = to_padded_one_hot(x_delta_int) | score_delta = model(x_delta_oh) |  | x_delta_int.shape = (2, 3) | x_delta_oh.shape  = (2, 3...","textChars":158,"textLines":6,"bbox":[135,198,1010,128]}
+{"kind":"shape","id":"sh/5sneloj2","slide":13,"bbox":[170,410,120,36]}
+{"kind":"textbox","id":"sh/cbulwval","slide":13,"text":"Sample","textPreview":"Sample","textChars":6,"textLines":1,"bbox":[178,418,104,28]}
+{"kind":"shape","id":"sh/nuxc3ylc","slide":13,"bbox":[290,410,220,36]}
+{"kind":"textbox","id":"sh/y90je9cv","slide":13,"text":"Current","textPreview":"Current","textChars":7,"textLines":1,"bbox":[298,418,204,28]}
+{"kind":"shape","id":"sh/oza1gvy9","slide":13,"bbox":[510,410,220,36]}
+{"kind":"textbox","id":"sh/hk3q5o7q","slide":13,"text":"Proposal","textPreview":"Proposal","textChars":8,"textLines":1,"bbox":[518,418,204,28]}
+{"kind":"shape","id":"sh/6xkf6dcb","slide":13,"bbox":[730,410,380,36]}
+{"kind":"textbox","id":"sh/zed8v6ps","slide":13,"text":"Score change","textPreview":"Score change","textChars":12,"textLines":1,"bbox":[738,418,364,28]}
+{"kind":"shape","id":"sh/obm58z25","slide":13,"bbox":[170,446,120,54.5]}
+{"kind":"textbox","id":"sh/hwfyxobm","slide":13,"text":"0","textPreview":"0","textChars":1,"textLines":1,"bbox":[178,453,104,46.5]}
+{"kind":"shape","id":"sh/65wjudg7","slide":13,"bbox":[290,446,220,54.5]}
+{"kind":"textbox","id":"sh/zqtcj6to","slide":13,"text":"[1,2,0]","textPreview":"[1,2,0]","textChars":7,"textLines":1,"bbox":[298,453,204,46.5]}
+{"kind":"shape","id":"sh/sfil0rqd","slide":13,"bbox":[510,446,220,54.5]}
+{"kind":"textbox","id":"sh/h0fepkzu","slide":13,"text":"[1,1,0]","textPreview":"[1,1,0]","textChars":7,"textLines":1,"bbox":[518,453,204,46.5]}
+{"kind":"shape","id":"sh/54zidony","slide":13,"bbox":[730,446,380,54.5]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":13,"text":"score_delta[0] - score_cur[0]","textPreview":"score_delta[0] - score_cur[0]","textChars":29,"textLines":1,"bbox":[738,453,364,46.5]}
+{"kind":"shape","id":"sh/nyd0z610","slide":13,"bbox":[170,500.5,120,54.5]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":13,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[178,507.5,104,46.5]}
+{"kind":"shape","id":"sh/5gbq1ory","slide":13,"bbox":[290,500.5,220,54.5]}
+{"kind":"textbox","id":"sh/cvixczed","slide":13,"text":"[0,3,1]","textPreview":"[0,3,1]","textChars":7,"textLines":1,"bbox":[298,507.5,204,46.5]}
+{"kind":"shape","id":"sh/nap4r65w","slide":13,"bbox":[510,500.5,220,54.5]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":13,"text":"[0,3,2]","textPreview":"[0,3,2]","textChars":7,"textLines":1,"bbox":[518,507.5,204,46.5]}
+{"kind":"shape","id":"sh/1orytsvu","slide":13,"bbox":[730,500.5,380,54.5]}
+{"kind":"textbox","id":"sh/c7u54zid","slide":13,"text":"score_delta[1] - score_cur[1]","textPreview":"score_delta[1] - score_cur[1]","textChars":29,"textLines":1,"bbox":[738,507.5,364,46.5]}
+{"kind":"shape","id":"sh/qxs72x4n","slide":13,"bbox":[125,585,1030,55]}
+{"kind":"textbox","id":"sh/fil0rqd4","slide":13,"text":"Code evidence: LangevinSampler MH correction uses model(x_delta) - model(x_cur). In the categorical version the inputs are x_delta_oh and x_cur_oh.","textPreview":"Code evidence: LangevinSampler MH correction uses model(x_delta) - model(x_cur). In the categorical version the inputs are x_delta_oh and...","textChars":147,"textLines":1,"bbox":[139,597,1002,35]}
+{"kind":"notes","id":"nt/e0h7bv","slide":13,"text":""}
+{"kind":"slide","id":"sl/62c5ow","slide":14,"title":"MH CORRECTION","textShapes":7}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":14,"text":"MH CORRECTION","textPreview":"MH CORRECTION","textChars":13,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/j2t83itg","slide":14,"text":"Step 10 recomputes proposal probabilities from the proposed state","textPreview":"Step 10 recomputes proposal probabilities from the proposed state","textChars":65,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/qh0fepkz","slide":14,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/1w7mp0bi","slide":14,"bbox":[70,175,610,170]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":14,"text":"reverse_delta = diff_fn(x_delta_oh, model)\nreverse_logits = reverse_delta - penalty\nreverse_logits = reverse_logits.masked_fill(invalid_mask, -1e9)\n\nlp_forward.shape = (2,)\nlp_reverse.shape = (2,)","textPreview":"reverse_delta = diff_fn(x_delta_oh, model) | reverse_logits = reverse_delta - penalty | reverse_logits = reverse_logits.masked_fill(inval...","textChars":196,"textLines":6,"bbox":[85,188,580,148]}
+{"kind":"shape","id":"sh/jqh0fepk","slide":14,"bbox":[735,195,7,7]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":14,"text":"lp_forward is the log probability of the sampled current -> proposed move.","textPreview":"lp_forward is the log probability of the sampled current -> proposed move.","textChars":74,"textLines":1,"bbox":[757,185,448,56]}
+{"kind":"shape","id":"sh/1kre1w7m","slide":14,"bbox":[735,253,7,7]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":14,"text":"lp_reverse is the log probability of the proposed -> current move.","textPreview":"lp_reverse is the log probability of the proposed -> current move.","textChars":66,"textLines":1,"bbox":[757,243,448,56]}
+{"kind":"shape","id":"sh/a1gvy90j","slide":14,"bbox":[735,311,7,7]}
+{"kind":"textbox","id":"sh/zidonyd0","slide":14,"text":"The same validity mask is used in both directions.","textPreview":"The same validity mask is used in both directions.","textChars":50,"textLines":1,"bbox":[757,301,448,56]}
+{"kind":"shape","id":"sh/s36hcrmh","slide":14,"bbox":[110,530,1060,58]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":14,"text":"Code evidence: samplers.py::LangevinSampler computes lp_forward and lp_reverse for MH. The categorical masked reverse pass is my modification.","textPreview":"Code evidence: samplers.py::LangevinSampler computes lp_forward and lp_reverse for MH. The categorical masked reverse pass is my modifica...","textChars":142,"textLines":1,"bbox":[124,542,1032,38]}
+{"kind":"notes","id":"nt/62c5ow","slide":14,"text":""}
+{"kind":"slide","id":"sl/m4j8ph","slide":15,"title":"MH CORRECTION","textShapes":22}
+{"kind":"textbox","id":"sh/vy90je9c","slide":15,"text":"MH CORRECTION","textPreview":"MH CORRECTION","textChars":13,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/oj2t83it","slide":15,"text":"Step 11 accepts or rejects the proposed categorical state","textPreview":"Step 11 accepts or rejects the proposed categorical state","textChars":57,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/d4vmtwra","slide":15,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/61032lsz","slide":15,"bbox":[75,185,1130,135]}
+{"kind":"textbox","id":"sh/vmtwra5g","slide":15,"text":"m_term = score_delta - score_cur\nla = m_term + lp_reverse - lp_forward\na = (la.exp() > torch.rand_like(la)).float()\nx_next = x_delta_int * a[:, None] + x_int * (1 - a[:, None])","textPreview":"m_term = score_delta - score_cur | la = m_term + lp_reverse - lp_forward | a = (la.exp() > torch.rand_like(la)).float() | x_next = x_delt...","textChars":176,"textLines":4,"bbox":[90,198,1100,113]}
+{"kind":"shape","id":"sh/o7qpg3ex","slide":15,"bbox":[200,395,170,36]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":15,"text":"Object","textPreview":"Object","textChars":6,"textLines":1,"bbox":[208,403,154,28]}
+{"kind":"shape","id":"sh/6tovahoz","slide":15,"bbox":[370,395,160,36]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":15,"text":"Shape","textPreview":"Shape","textChars":5,"textLines":1,"bbox":[378,403,144,28]}
+{"kind":"shape","id":"sh/7qpg3ex0","slide":15,"bbox":[530,395,550,36]}
+{"kind":"textbox","id":"sh/i5sneloj","slide":15,"text":"Meaning","textPreview":"Meaning","textChars":7,"textLines":1,"bbox":[538,403,534,28]}
+{"kind":"shape","id":"sh/pwb2hwfy","slide":15,"bbox":[200,431,170,30.8]}
+{"kind":"textbox","id":"sh/0bi9s36h","slide":15,"text":"m_term","textPreview":"m_term","textChars":6,"textLines":1,"bbox":[208,438,154,22.8]}
+{"kind":"shape","id":"sh/7y1kre1w","slide":15,"bbox":[370,431,160,30.8]}
+{"kind":"textbox","id":"sh/ed8v6psf","slide":15,"text":"(2,)","textPreview":"(2,)","textChars":4,"textLines":1,"bbox":[378,438,144,22.8]}
+{"kind":"shape","id":"sh/p4r65wju","slide":15,"bbox":[530,431,550,30.8]}
+{"kind":"textbox","id":"sh/wjudg7ad","slide":15,"text":"model score difference","textPreview":"model score difference","textChars":22,"textLines":1,"bbox":[538,438,534,22.8]}
+{"kind":"shape","id":"sh/72x4nap4","slide":15,"bbox":[200,461.8,170,30.8]}
+{"kind":"textbox","id":"sh/ih4byhgn","slide":15,"text":"lp_forward","textPreview":"lp_forward","textChars":10,"textLines":1,"bbox":[208,468.8,154,22.8]}
+{"kind":"shape","id":"sh/mtwra5gb","slide":15,"bbox":[370,461.8,160,30.8]}
+{"kind":"textbox","id":"sh/fepkzupw","slide":15,"text":"(2,)","textPreview":"(2,)","textChars":4,"textLines":1,"bbox":[378,468.8,144,22.8]}
+{"kind":"shape","id":"sh/4zidonyd","slide":15,"bbox":[530,461.8,550,30.8]}
+{"kind":"textbox","id":"sh/xkf6dcbu","slide":15,"text":"proposal log-probability","textPreview":"proposal log-probability","textChars":24,"textLines":1,"bbox":[538,468.8,534,22.8]}
+{"kind":"shape","id":"sh/mlkjm1cf","slide":15,"bbox":[200,492.6,170,30.8]}
+{"kind":"textbox","id":"sh/f6dcbulw","slide":15,"text":"lp_reverse","textPreview":"lp_reverse","textChars":10,"textLines":1,"bbox":[208,499.6,154,22.8]}
+{"kind":"shape","id":"sh/4r65wjud","slide":15,"bbox":[370,492.6,160,30.8]}
+{"kind":"textbox","id":"sh/xc3ylc7u","slide":15,"text":"(2,)","textPreview":"(2,)","textChars":4,"textLines":1,"bbox":[378,499.6,144,22.8]}
+{"kind":"shape","id":"sh/m94fu18j","slide":15,"bbox":[530,492.6,550,30.8]}
+{"kind":"textbox","id":"sh/fu18jqh0","slide":15,"text":"reverse proposal log-probability","textPreview":"reverse proposal log-probability","textChars":32,"textLines":1,"bbox":[538,499.6,534,22.8]}
+{"kind":"shape","id":"sh/1032lszq","slide":15,"bbox":[200,523.4,170,30.8]}
+{"kind":"textbox","id":"sh/cfa9w3m9","slide":15,"text":"a","textPreview":"a","textChars":1,"textLines":1,"bbox":[208,530.4,154,22.8]}
+{"kind":"shape","id":"sh/judg7ads","slide":15,"bbox":[370,523.4,160,30.8]}
+{"kind":"textbox","id":"sh/u9knih4b","slide":15,"text":"(2,)","textPreview":"(2,)","textChars":4,"textLines":1,"bbox":[378,530.4,144,22.8]}
+{"kind":"shape","id":"sh/1orytsvu","slide":15,"bbox":[530,523.4,550,30.8]}
+{"kind":"textbox","id":"sh/c7u54zid","slide":15,"text":"accept/reject indicator","textPreview":"accept/reject indicator","textChars":23,"textLines":1,"bbox":[538,530.4,534,22.8]}
+{"kind":"shape","id":"sh/jm1cfa9w","slide":15,"bbox":[200,554.2,170,30.8]}
+{"kind":"textbox","id":"sh/u18jqh0f","slide":15,"text":"x_next","textPreview":"x_next","textChars":6,"textLines":1,"bbox":[208,561.2,154,22.8]}
+{"kind":"shape","id":"sh/5gbq1ory","slide":15,"bbox":[370,554.2,160,30.8]}
+{"kind":"textbox","id":"sh/cvixczed","slide":15,"text":"(2,3)","textPreview":"(2,3)","textChars":5,"textLines":1,"bbox":[378,561.2,144,22.8]}
+{"kind":"shape","id":"sh/gr2p8nqx","slide":15,"bbox":[530,554.2,550,30.8]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":15,"text":"next integer categorical state","textPreview":"next integer categorical state","textChars":30,"textLines":1,"bbox":[538,561.2,534,22.8]}
+{"kind":"shape","id":"sh/ylc7u54z","slide":15,"bbox":[190,615,900,42]}
+{"kind":"textbox","id":"sh/r65wjudg","slide":15,"text":"Code evidence: samplers.py::LangevinSampler uses exactly this MH structure for DMALA when mh=True.","textPreview":"Code evidence: samplers.py::LangevinSampler uses exactly this MH structure for DMALA when mh=True.","textChars":98,"textLines":1,"bbox":[204,627,872,22]}
+{"kind":"notes","id":"nt/m4j8ph","slide":15,"text":""}
+{"kind":"slide","id":"sl/d9fx4k","slide":16,"title":"OUTPUT","textShapes":20}
+{"kind":"textbox","id":"sh/a1gvy90j","slide":16,"text":"OUTPUT","textPreview":"OUTPUT","textChars":6,"textLines":1,"bbox":[54,31,420,24]}
+{"kind":"textbox","id":"sh/hoza1gvy","slide":16,"text":"Step 12 decodes directly because x_next is already categorical","textPreview":"Step 12 decodes directly because x_next is already categorical","textChars":62,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/s36hcrmh","slide":16,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/za1gvy90","slide":16,"bbox":[65,185,190,36]}
+{"kind":"textbox","id":"sh/ap4r65wj","slide":16,"text":"Tensor","textPreview":"Tensor","textChars":6,"textLines":1,"bbox":[73,193,174,28]}
+{"kind":"shape","id":"sh/hgn29gr2","slide":16,"bbox":[255,185,170,36]}
+{"kind":"textbox","id":"sh/svu9knih","slide":16,"text":"Shape","textPreview":"Shape","textChars":5,"textLines":1,"bbox":[263,193,154,28]}
+{"kind":"shape","id":"sh/3ylc7u54","slide":16,"bbox":[425,185,300,36]}
+{"kind":"textbox","id":"sh/adsji5sn","slide":16,"text":"Example","textPreview":"Example","textChars":7,"textLines":1,"bbox":[433,193,284,28]}
+{"kind":"shape","id":"sh/w7mp0bi9","slide":16,"bbox":[725,185,490,36]}
+{"kind":"textbox","id":"sh/psfil0rq","slide":16,"text":"What it means","textPreview":"What it means","textChars":13,"textLines":1,"bbox":[733,193,474,28]}
+{"kind":"shape","id":"sh/e1w7mp0b","slide":16,"bbox":[65,221,190,56.33]}
+{"kind":"textbox","id":"sh/7mp0bi9s","slide":16,"text":"x_next","textPreview":"x_next","textChars":6,"textLines":1,"bbox":[73,228,174,48.33]}
+{"kind":"shape","id":"sh/wval87ed","slide":16,"bbox":[255,221,170,56.33]}
+{"kind":"textbox","id":"sh/pg3ex0nu","slide":16,"text":"(2,3)","textPreview":"(2,3)","textChars":5,"textLines":1,"bbox":[263,228,154,48.33]}
+{"kind":"shape","id":"sh/epkzupwb","slide":16,"bbox":[425,221,300,56.33]}
+{"kind":"textbox","id":"sh/7adsji5s","slide":16,"text":"[1,1,0]","textPreview":"[1,1,0]","textChars":7,"textLines":1,"bbox":[433,228,284,48.33]}
+{"kind":"shape","id":"sh/wra5gbq1","slide":16,"bbox":[725,221,490,56.33]}
+{"kind":"textbox","id":"sh/lc7u54zi","slide":16,"text":"A=blue, B=class1, C=low","textPreview":"A=blue, B=class1, C=low","textChars":23,"textLines":1,"bbox":[733,228,474,48.33]}
+{"kind":"shape","id":"sh/p4r65wju","slide":16,"bbox":[65,277.33,190,56.33]}
+{"kind":"textbox","id":"sh/wjudg7ad","slide":16,"text":"x_next_oh","textPreview":"x_next_oh","textChars":9,"textLines":1,"bbox":[73,284.33,174,48.33]}
+{"kind":"shape","id":"sh/7y1kre1w","slide":16,"bbox":[255,277.33,170,56.33]}
+{"kind":"textbox","id":"sh/ed8v6psf","slide":16,"text":"(2,3,4)","textPreview":"(2,3,4)","textChars":7,"textLines":1,"bbox":[263,284.33,154,48.33]}
+{"kind":"shape","id":"sh/pwb2hwfy","slide":16,"bbox":[425,277.33,300,56.33]}
+{"kind":"textbox","id":"sh/0bi9s36h","slide":16,"text":"padded one-hot","textPreview":"padded one-hot","textChars":14,"textLines":1,"bbox":[433,284.33,284,48.33]}
+{"kind":"shape","id":"sh/7qpg3ex0","slide":16,"bbox":[725,277.33,490,56.33]}
+{"kind":"textbox","id":"sh/i5sneloj","slide":16,"text":"only needed if the model is called again","textPreview":"only needed if the model is called again","textChars":40,"textLines":1,"bbox":[733,284.33,474,48.33]}
+{"kind":"shape","id":"sh/pkzupwb2","slide":16,"bbox":[65,333.67,190,56.33]}
+{"kind":"textbox","id":"sh/0z61032l","slide":16,"text":"decoded rows","textPreview":"decoded rows","textChars":12,"textLines":1,"bbox":[73,340.67,174,48.33]}
+{"kind":"shape","id":"sh/qh0fepkz","slide":16,"bbox":[255,333.67,170,56.33]}
+{"kind":"textbox","id":"sh/j2t83itg","slide":16,"text":"(2,D)","textPreview":"(2,D)","textChars":5,"textLines":1,"bbox":[263,340.67,154,48.33]}
+{"kind":"shape","id":"sh/8nqxs72x","slide":16,"bbox":[425,333.67,300,56.33]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":16,"text":"labels or original categories","textPreview":"labels or original categories","textChars":29,"textLines":1,"bbox":[433,340.67,284,48.33]}
+{"kind":"shape","id":"sh/q5o7qpg3","slide":16,"bbox":[725,333.67,490,56.33]}
+{"kind":"textbox","id":"sh/jqh0fepk","slide":16,"text":"final generated categorical data","textPreview":"final generated categorical data","textChars":32,"textLines":1,"bbox":[733,340.67,474,48.33]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":16,"text":"No argmax repair is needed after sampling. The sampler never leaves the valid categorical state space.","textPreview":"No argmax repair is needed after sampling. The sampler never leaves the valid categorical state space.","textChars":102,"textLines":1,"bbox":[110,465,1060,60]}
+{"kind":"shape","id":"sh/1w7mp0bi","slide":16,"bbox":[125,565,1030,55]}
+{"kind":"textbox","id":"sh/uxc3ylc7","slide":16,"text":"Code evidence: direct decoding is my modification. The repo's tabular one-hot loaders do not implement generated-sample decoding in the DMALA path.","textPreview":"Code evidence: direct decoding is my modification. The repo's tabular one-hot loaders do not implement generated-sample decoding in the D...","textChars":147,"textLines":1,"bbox":[139,577,1002,35]}
+{"kind":"notes","id":"nt/d9fx4k","slide":16,"text":""}
+{"kind":"slide","id":"sl/l632du","slide":17,"title":"Where the repo ends and the modification begins","textShapes":2}
+{"kind":"textbox","id":"sh/uxc3ylc7","slide":17,"text":"Where the repo ends and the modification begins","textPreview":"Where the repo ends and the modification begins","textChars":47,"textLines":1,"bbox":[70,210,960,72]}
+{"kind":"shape","id":"sh/1kre1w7m","slide":17,"bbox":[70,330,640,3]}
+{"kind":"textbox","id":"sh/c3ylc7u5","slide":17,"text":"The current code provides the binary DMALA structure and a categorical toy example. The masked variable-cardinality pipeline combines those ideas.","textPreview":"The current code provides the binary DMALA structure and a categorical toy example. The masked variable-cardinality pipeline combines tho...","textChars":146,"textLines":1,"bbox":[70,372,900,82]}
+{"kind":"notes","id":"nt/l632du","slide":17,"text":""}
+{"kind":"slide","id":"sl/fc89af","slide":18,"title":"The code evidence maps to specific parts of the implementation","textShapes":23}
+{"kind":"textbox","id":"sh/32lszqtc","slide":18,"text":"The code evidence maps to specific parts of the implementation","textPreview":"The code evidence maps to specific parts of the implementation","textChars":62,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/sneloj2t","slide":18,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/l87ed8ba","slide":18,"bbox":[45,170,260,36]}
+{"kind":"textbox","id":"sh/at47y1kr","slide":18,"text":"Pipeline part","textPreview":"Pipeline part","textChars":13,"textLines":1,"bbox":[53,178,244,28]}
+{"kind":"shape","id":"sh/3ex0nuxc","slide":18,"bbox":[305,170,620,36]}
+{"kind":"textbox","id":"sh/szqtcj6t","slide":18,"text":"Repo evidence","textPreview":"Repo evidence","textChars":13,"textLines":1,"bbox":[313,178,604,28]}
+{"kind":"shape","id":"sh/lkjm1cfa","slide":18,"bbox":[925,170,310,36]}
+{"kind":"textbox","id":"sh/ex0nuxc3","slide":18,"text":"Status","textPreview":"Status","textChars":6,"textLines":1,"bbox":[933,178,294,28]}
+{"kind":"shape","id":"sh/3itgfmlk","slide":18,"bbox":[45,206,260,49]}
+{"kind":"textbox","id":"sh/bm58z25k","slide":18,"text":"DMALA MH structure","textPreview":"DMALA MH structure","textChars":18,"textLines":1,"bbox":[53,213,244,41]}
+{"kind":"shape","id":"sh/m1cfa9w3","slide":18,"bbox":[305,206,620,49]}
+{"kind":"textbox","id":"sh/tsvu9kni","slide":18,"text":"samplers.py::LangevinSampler(mh=True)","textPreview":"samplers.py::LangevinSampler(mh=True)","textChars":37,"textLines":1,"bbox":[313,213,604,41]}
+{"kind":"shape","id":"sh/47y1kre1","slide":18,"bbox":[925,206,310,49]}
+{"kind":"textbox","id":"sh/bat47y1k","slide":18,"text":"implemented","textPreview":"implemented","textChars":11,"textLines":1,"bbox":[933,213,294,41]}
+{"kind":"shape","id":"sh/mp0bi9s3","slide":18,"bbox":[45,255,260,49]}
+{"kind":"textbox","id":"sh/tgfmlkjm","slide":18,"text":"binary difference / proposal","textPreview":"binary difference / proposal","textChars":28,"textLines":1,"bbox":[53,262,244,41]}
+{"kind":"shape","id":"sh/4vmtwra5","slide":18,"bbox":[305,255,620,49]}
+{"kind":"textbox","id":"sh/b2hwfyxo","slide":18,"text":"utils.approx_difference_function + LangevinSampler.step","textPreview":"utils.approx_difference_function + LangevinSampler.step","textChars":55,"textLines":1,"bbox":[313,262,604,41]}
+{"kind":"shape","id":"sh/mhk3q5o7","slide":18,"bbox":[925,255,310,49]}
+{"kind":"textbox","id":"sh/udg7adsj","slide":18,"text":"implemented for flat binary","textPreview":"implemented for flat binary","textChars":27,"textLines":1,"bbox":[933,262,294,41]}
+{"kind":"shape","id":"sh/nyd0z610","slide":18,"bbox":[45,304,260,49]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":18,"text":"integer categorical state","textPreview":"integer categorical state","textChars":25,"textLines":1,"bbox":[53,311,244,41]}
+{"kind":"shape","id":"sh/54zidony","slide":18,"bbox":[305,304,620,49]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":18,"text":"CategoricalExample/samplers.py","textPreview":"CategoricalExample/samplers.py","textChars":30,"textLines":1,"bbox":[313,311,604,41]}
+{"kind":"shape","id":"sh/nap4r65w","slide":18,"bbox":[925,304,310,49]}
+{"kind":"textbox","id":"sh/cvixczed","slide":18,"text":"implemented as toy example","textPreview":"implemented as toy example","textChars":26,"textLines":1,"bbox":[933,311,294,41]}
+{"kind":"shape","id":"sh/5gbq1ory","slide":18,"bbox":[45,353,260,49]}
+{"kind":"textbox","id":"sh/u18jqh0f","slide":18,"text":"one-hot for scoring","textPreview":"one-hot for scoring","textChars":19,"textLines":1,"bbox":[53,360,244,41]}
+{"kind":"shape","id":"sh/jm1cfa9w","slide":18,"bbox":[305,353,620,49]}
+{"kind":"textbox","id":"sh/9knih4by","slide":18,"text":"CategoricalExample::to_one_hot","textPreview":"CategoricalExample::to_one_hot","textChars":30,"textLines":1,"bbox":[313,360,604,41]}
+{"kind":"shape","id":"sh/kzupwb2h","slide":18,"bbox":[925,353,310,49]}
+{"kind":"textbox","id":"sh/re1w7mp0","slide":18,"text":"implemented with shared num_cls","textPreview":"implemented with shared num_cls","textChars":31,"textLines":1,"bbox":[933,360,294,41]}
+{"kind":"shape","id":"sh/2t83itgf","slide":18,"bbox":[45,402,260,49]}
+{"kind":"textbox","id":"sh/9w3m94fu","slide":18,"text":"variable cardinality","textPreview":"variable cardinality","textChars":20,"textLines":1,"bbox":[53,409,244,41]}
+{"kind":"shape","id":"sh/kb6xkf6d","slide":18,"bbox":[305,402,620,49]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":18,"text":"cardinalities + valid_mask","textPreview":"cardinalities + valid_mask","textChars":26,"textLines":1,"bbox":[313,409,604,41]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":18,"bbox":[925,402,310,49]}
+{"kind":"textbox","id":"sh/94fu18jq","slide":18,"text":"my modification","textPreview":"my modification","textChars":15,"textLines":1,"bbox":[933,409,294,41]}
+{"kind":"shape","id":"sh/kjm1cfa9","slide":18,"bbox":[45,451,260,49]}
+{"kind":"textbox","id":"sh/87ed8bat","slide":18,"text":"masked categorical proposal","textPreview":"masked categorical proposal","textChars":27,"textLines":1,"bbox":[53,458,244,41]}
+{"kind":"shape","id":"sh/xs72x4na","slide":18,"bbox":[305,451,620,49]}
+{"kind":"textbox","id":"sh/q1orytsv","slide":18,"text":"mask invalid logits before Categorical","textPreview":"mask invalid logits before Categorical","textChars":38,"textLines":1,"bbox":[313,458,604,41]}
+{"kind":"shape","id":"sh/fmlkjm1c","slide":18,"bbox":[925,451,310,49]}
+{"kind":"textbox","id":"sh/8z25kb6x","slide":18,"text":"my modification","textPreview":"my modification","textChars":15,"textLines":1,"bbox":[933,458,294,41]}
+{"kind":"shape","id":"sh/1gvy90je","slide":18,"bbox":[145,545,990,54]}
+{"kind":"textbox","id":"sh/qtcj6tov","slide":18,"text":"This slide is the boundary marker: it separates what can be cited from the repo from what must be presented as an extension.","textPreview":"This slide is the boundary marker: it separates what can be cited from the repo from what must be presented as an extension.","textChars":124,"textLines":1,"bbox":[159,557,962,34]}
+{"kind":"notes","id":"nt/fc89af","slide":18,"text":""}
+{"kind":"slide","id":"sl/qvnv76","slide":19,"title":"The full loop repeats the same state transition many times","textShapes":23}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":19,"text":"The full loop repeats the same state transition many times","textPreview":"The full loop repeats the same state transition many times","textChars":58,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/nih4byhg","slide":19,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/yxobm58z","slide":19,"bbox":[110,175,360,36]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":19,"text":"Loop action","textPreview":"Loop action","textChars":11,"textLines":1,"bbox":[118,183,344,28]}
+{"kind":"shape","id":"sh/gr2p8nqx","slide":19,"bbox":[470,175,260,36]}
+{"kind":"textbox","id":"sh/r65wjudg","slide":19,"text":"Input shape","textPreview":"Input shape","textChars":11,"textLines":1,"bbox":[478,183,244,28]}
+{"kind":"shape","id":"sh/ylc7u54z","slide":19,"bbox":[730,175,260,36]}
+{"kind":"textbox","id":"sh/90je9cvi","slide":19,"text":"Output shape","textPreview":"Output shape","textChars":12,"textLines":1,"bbox":[738,183,244,28]}
+{"kind":"shape","id":"sh/gfmlkjm1","slide":19,"bbox":[110,211,360,44]}
+{"kind":"textbox","id":"sh/65wjudg7","slide":19,"text":"start from x_int","textPreview":"start from x_int","textChars":16,"textLines":1,"bbox":[118,218,344,36]}
+{"kind":"shape","id":"sh/zqtcj6to","slide":19,"bbox":[470,211,260,44]}
+{"kind":"textbox","id":"sh/obm58z25","slide":19,"text":"(2,3)","textPreview":"(2,3)","textChars":5,"textLines":1,"bbox":[478,218,244,36]}
+{"kind":"shape","id":"sh/hwfyxobm","slide":19,"bbox":[730,211,260,44]}
+{"kind":"textbox","id":"sh/6xkf6dcb","slide":19,"text":"(2,3)","textPreview":"(2,3)","textChars":5,"textLines":1,"bbox":[738,218,244,36]}
+{"kind":"shape","id":"sh/zed8v6ps","slide":19,"bbox":[110,255,360,44]}
+{"kind":"textbox","id":"sh/oza1gvy9","slide":19,"text":"one-hot encode","textPreview":"one-hot encode","textChars":14,"textLines":1,"bbox":[118,262,344,36]}
+{"kind":"shape","id":"sh/hk3q5o7q","slide":19,"bbox":[470,255,260,44]}
+{"kind":"textbox","id":"sh/al87ed8b","slide":19,"text":"(2,3)","textPreview":"(2,3)","textChars":5,"textLines":1,"bbox":[478,262,244,36]}
+{"kind":"shape","id":"sh/z61032ls","slide":19,"bbox":[730,255,260,44]}
+{"kind":"textbox","id":"sh/bi9s36hc","slide":19,"text":"(2,3,4)","textPreview":"(2,3,4)","textChars":7,"textLines":1,"bbox":[738,262,244,36]}
+{"kind":"shape","id":"sh/ixczed8v","slide":19,"bbox":[110,299,360,44]}
+{"kind":"textbox","id":"sh/tovahoza","slide":19,"text":"compute gradient","textPreview":"compute gradient","textChars":16,"textLines":1,"bbox":[118,306,344,36]}
+{"kind":"shape","id":"sh/032lszqt","slide":19,"bbox":[470,299,260,44]}
+{"kind":"textbox","id":"sh/bulwval8","slide":19,"text":"(2,3,4)","textPreview":"(2,3,4)","textChars":7,"textLines":1,"bbox":[478,306,244,36]}
+{"kind":"shape","id":"sh/i9s36hcr","slide":19,"bbox":[730,299,260,44]}
+{"kind":"textbox","id":"sh/p0bi9s36","slide":19,"text":"(2,3,4)","textPreview":"(2,3,4)","textChars":7,"textLines":1,"bbox":[738,306,244,36]}
+{"kind":"shape","id":"sh/0fepkzup","slide":19,"bbox":[110,343,360,44]}
+{"kind":"textbox","id":"sh/byhgn29g","slide":19,"text":"make masked logits","textPreview":"make masked logits","textChars":18,"textLines":1,"bbox":[118,350,344,36]}
+{"kind":"shape","id":"sh/idonyd0z","slide":19,"bbox":[470,343,260,44]}
+{"kind":"textbox","id":"sh/wb2hwfyx","slide":19,"text":"(2,3,4) + (3,4)","textPreview":"(2,3,4) + (3,4)","textChars":15,"textLines":1,"bbox":[478,350,244,36]}
+{"kind":"shape","id":"sh/lwval87e","slide":19,"bbox":[730,343,260,44]}
+{"kind":"textbox","id":"sh/e9cvixcz","slide":19,"text":"(2,3,4)","textPreview":"(2,3,4)","textChars":7,"textLines":1,"bbox":[738,350,244,36]}
+{"kind":"shape","id":"sh/3q5o7qpg","slide":19,"bbox":[110,387,360,44]}
+{"kind":"textbox","id":"sh/w3m94fu1","slide":19,"text":"sample proposal","textPreview":"sample proposal","textChars":15,"textLines":1,"bbox":[118,394,344,36]}
+{"kind":"shape","id":"sh/loj2t83i","slide":19,"bbox":[470,387,260,44]}
+{"kind":"textbox","id":"sh/ex0nuxc3","slide":19,"text":"(2,3,4)","textPreview":"(2,3,4)","textChars":7,"textLines":1,"bbox":[478,394,244,36]}
+{"kind":"shape","id":"sh/3itgfmlk","slide":19,"bbox":[730,387,260,44]}
+{"kind":"textbox","id":"sh/szqtcj6t","slide":19,"text":"(2,3)","textPreview":"(2,3)","textChars":5,"textLines":1,"bbox":[738,394,244,36]}
+{"kind":"shape","id":"sh/lkjm1cfa","slide":19,"bbox":[110,431,360,44]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":19,"text":"MH accept/reject","textPreview":"MH accept/reject","textChars":16,"textLines":1,"bbox":[118,438,344,36]}
+{"kind":"shape","id":"sh/onyd0z61","slide":19,"bbox":[470,431,260,44]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":19,"text":"(2,3), (2,), (2,)","textPreview":"(2,3), (2,), (2,)","textChars":17,"textLines":1,"bbox":[478,438,244,36]}
+{"kind":"shape","id":"sh/6hcrmhk3","slide":19,"bbox":[730,431,260,44]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":19,"text":"(2,3)","textPreview":"(2,3)","textChars":5,"textLines":1,"bbox":[738,438,244,36]}
+{"kind":"textbox","id":"sh/ovahoza1","slide":19,"text":"After each iteration, x_next becomes the new x_int.","textPreview":"After each iteration, x_next becomes the new x_int.","textChars":51,"textLines":1,"bbox":[170,520,940,48]}
+{"kind":"notes","id":"nt/qvnv76","slide":19,"text":""}
+{"kind":"slide","id":"sl/r0docw","slide":20,"title":"The main message is the execution path through tensors","textShapes":7}
+{"kind":"textbox","id":"sh/d4vmtwra","slide":20,"text":"The main message is the execution path through tensors","textPreview":"The main message is the execution path through tensors","textChars":54,"textLines":1,"bbox":[54,64,1110,58]}
+{"kind":"shape","id":"sh/6dcbulwv","slide":20,"bbox":[54,138,1172,2]}
+{"kind":"shape","id":"sh/vy90je9c","slide":20,"bbox":[110,195,7,7]}
+{"kind":"textbox","id":"sh/o7qpg3ex","slide":20,"text":"The sampler state is compact: one integer per feature, shape (B,D).","textPreview":"The sampler state is compact: one integer per feature, shape (B,D).","textChars":67,"textLines":1,"bbox":[132,185,1018,56]}
+{"kind":"shape","id":"sh/dsji5sne","slide":20,"bbox":[110,253,7,7]}
+{"kind":"textbox","id":"sh/61032lsz","slide":20,"text":"The model input is expanded only temporarily to padded one-hot, shape (B,D,K).","textPreview":"The model input is expanded only temporarily to padded one-hot, shape (B,D,K).","textChars":78,"textLines":1,"bbox":[132,243,1018,56]}
+{"kind":"shape","id":"sh/vmtwra5g","slide":20,"bbox":[110,311,7,7]}
+{"kind":"textbox","id":"sh/ovahoza1","slide":20,"text":"The gradient and proposal scores live on the padded tensor, shape (B,D,K).","textPreview":"The gradient and proposal scores live on the padded tensor, shape (B,D,K).","textChars":74,"textLines":1,"bbox":[132,301,1018,56]}
+{"kind":"shape","id":"sh/dg7adsji","slide":20,"bbox":[110,369,7,7]}
+{"kind":"textbox","id":"sh/1032lszq","slide":20,"text":"The validity mask removes padded classes before sampling.","textPreview":"The validity mask removes padded classes before sampling.","textChars":57,"textLines":1,"bbox":[132,359,1018,56]}
+{"kind":"shape","id":"sh/cfa9w3m9","slide":20,"bbox":[110,427,7,7]}
+{"kind":"textbox","id":"sh/judg7ads","slide":20,"text":"MH correction decides whether x_delta_int becomes the next x_int.","textPreview":"MH correction decides whether x_delta_int becomes the next x_int.","textChars":65,"textLines":1,"bbox":[132,417,1018,56]}
+{"kind":"shape","id":"sh/u9knih4b","slide":20,"bbox":[135,585,1010,58]}
+{"kind":"textbox","id":"sh/1orytsvu","slide":20,"text":"This is the pipeline explanation to present first. Flattening can be mentioned only briefly as a different representation that does not enforce this categorical state transition.","textPreview":"This is the pipeline explanation to present first. Flattening can be mentioned only briefly as a different representation that does not e...","textChars":178,"textLines":1,"bbox":[149,597,982,38]}
+{"kind":"notes","id":"nt/r0docw","slide":20,"text":""}

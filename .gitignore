@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+
+# Generated Ising artifacts
+data/ising/
+results/ising/
+slurm/logs/
