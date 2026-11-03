@@ -12,8 +12,8 @@
 
 set -euo pipefail
 
-# The job requests node-level memory with --mem. Clear memory-mode variables
-# that may be inherited from the shell that called sbatch; srun rejects mixtures.
+# The job requests node-level memory with --mem. Clear incompatible inherited
+# memory-mode variables before launching the single process in this allocation.
 unset SLURM_MEM_PER_CPU SLURM_MEM_PER_GPU
 
 CONDA_ROOT="/home/xyan1/anaconda3"
@@ -54,17 +54,13 @@ EXACT_CHUNK_SIZE=1000000
 # Read mean_acceptance and mean_proposed_hops from the output JSON. Do not use
 # mean_realized_hops for the orange curve.
 
-# Known Python-level difference:
-# MISALIGNMENT: benchmark_sampling.py initializes Bernoulli(0.5), whereas the
-# released original code initializes Bernoulli(sigmoid(0.4)). The long run makes
-# initialization less influential, but it is not an identical protocol.
 # NOTE: runtime is not a metric for this panel. record-every=1 and unsynchronized
 # CUDA timing make the saved seconds unsuitable for a runtime comparison.
 
 cd "$PROJECT_ROOT"
 mkdir -p "$OUTPUT_DIR"
 
-srun "$PYTHON_BIN" -m ising_pipeline.benchmark_sampling \
+"$PYTHON_BIN" -m ising_pipeline.benchmark_sampling \
   --output "$OUTPUT_DIR/dmala_alpha${STEP_SIZE}_seed${SEED}.npz" \
   --sampler dmala \
   --side "$SIDE" \

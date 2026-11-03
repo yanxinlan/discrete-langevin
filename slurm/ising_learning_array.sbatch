@@ -12,8 +12,8 @@
 
 set -euo pipefail
 
-# The job requests node-level memory with --mem. Clear memory-mode variables
-# that may be inherited from the shell that called sbatch; srun rejects mixtures.
+# The job requests node-level memory with --mem. Clear incompatible inherited
+# memory-mode variables before launching the single process in this allocation.
 unset SLURM_MEM_PER_CPU SLURM_MEM_PER_GPU
 
 CONDA_ROOT="/home/xyan1/anaconda3"
@@ -37,7 +37,7 @@ mkdir -p "$OUTPUT_DIR"
 # DULA alpha=0.1 and DMALA alpha=0.15 are selected by learn.py defaults.
 # UNPUBLISHED CHOICE: the paper does not state a seed/repetition count; this
 # array uses three consecutive seeds while retaining released default 123456.
-srun "$PYTHON_BIN" -m ising_pipeline.learn \
+"$PYTHON_BIN" -m ising_pipeline.learn \
   --data "$DATA_PATH" \
   --output-dir "$OUTPUT_DIR" \
   --sampler "$SAMPLER" \

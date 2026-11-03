@@ -26,7 +26,18 @@ def write_rows(path: Path, rows: list[dict]) -> None:
 
 def main() -> None:
     args = parse_args()
-    sampling_rows = [json.loads(path.read_text()) for path in sorted((args.results_root / "sampling").glob("*.json"))]
+    sampling_by_run: dict[tuple[str, int], tuple[Path, dict]] = {}
+    aliases = {"gibbs": "gibbs-1", "gwg": "gwg-1"}
+    for path in sorted((args.results_root / "sampling").glob("*.json")):
+        row = json.loads(path.read_text())
+        sampler = aliases.get(row["sampler"], row["sampler"])
+        row["sampler"] = sampler
+        key = (sampler, int(row["seed"]))
+        is_legacy_alias = path.stem.startswith(("gibbs_seed", "gwg_seed"))
+        if key in sampling_by_run and is_legacy_alias:
+            continue
+        sampling_by_run[key] = (path, row)
+    sampling_rows = [item[1] for item in sampling_by_run.values()]
     learning_rows: list[dict] = []
     for metrics_path in sorted((args.results_root / "learning").glob("*/metrics.jsonl")):
         lines = [line for line in metrics_path.read_text().splitlines() if line.strip()]
