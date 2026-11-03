@@ -11,6 +11,10 @@
 
 set -euo pipefail
 
+# The job requests node-level memory with --mem. Clear memory-mode variables
+# that may be inherited from the shell that called sbatch; srun rejects mixtures.
+unset SLURM_MEM_PER_CPU SLURM_MEM_PER_GPU
+
 CONDA_ROOT="/home/xyan1/anaconda3"
 source "$CONDA_ROOT/etc/profile.d/conda.sh"
 conda activate tabpfgen
