@@ -20,27 +20,33 @@ CONDA_ROOT="/home/xyan1/anaconda3"
 source "$CONDA_ROOT/etc/profile.d/conda.sh"
 conda activate tabpfgen
 
-PROJECT_ROOT="${PROJECT_ROOT:-$SLURM_SUBMIT_DIR}"
+# Fixed paper/released-code configuration for Figure 5(a,b).
+PROJECT_ROOT="/projects/prjs1237/project/tabpfgen/discrete-langevin"
 PYTHON_BIN="$CONDA_PREFIX/bin/python"
-SAMPLERS=(gibbs gwg dula dmala)
+SAMPLERS=(gibbs-1 gwg-1 dula dmala)
 SAMPLER="${SAMPLERS[$((SLURM_ARRAY_TASK_ID % 4))]}"
 REPLICATE="$((SLURM_ARRAY_TASK_ID / 4))"
-SEED="$((1234600 + REPLICATE))"
-DATA_PATH="${ISING_DATA_PATH:-data/ising/lattice_25_coupling_0.25.pt}"
-OUTPUT_DIR="${ISING_RESULTS_ROOT:-results/ising}/learning/${SAMPLER}_seed${SEED}"
+SEED="$((123456 + REPLICATE))"
+DATA_PATH="$PROJECT_ROOT/data/ising/lattice_25_coupling_0.25_gibbs1000000.pt"
+OUTPUT_DIR="$PROJECT_ROOT/results/ising/figure5_learning/learning/${SAMPLER}_seed${SEED}"
 cd "$PROJECT_ROOT"
 mkdir -p "$OUTPUT_DIR"
 
+# Paper Appendix I.4: 100 negative-phase steps for the main curves, PCD buffer
+# 256, batch 256, Adam lr=0.001, 10,000 iterations, and L1 coefficient 0.01.
+# DULA alpha=0.1 and DMALA alpha=0.15 are selected by learn.py defaults.
+# UNPUBLISHED CHOICE: the paper does not state a seed/repetition count; this
+# array uses three consecutive seeds while retaining released default 123456.
 srun "$PYTHON_BIN" -m ising_pipeline.learn \
   --data "$DATA_PATH" \
   --output-dir "$OUTPUT_DIR" \
   --sampler "$SAMPLER" \
-  --sampling-steps "${ISING_LEARNING_STEPS:-40}" \
-  --iterations "${ISING_LEARNING_ITERATIONS:-10000}" \
-  --batch-size "${ISING_BATCH_SIZE:-256}" \
-  --buffer-size "${ISING_BUFFER_SIZE:-256}" \
-  --learning-rate "${ISING_LEARNING_RATE:-0.001}" \
-  --l1 "${ISING_L1:-0.01}" \
-  --record-every "${ISING_RECORD_EVERY:-100}" \
+  --sampling-steps 100 \
+  --iterations 10000 \
+  --batch-size 256 \
+  --buffer-size 256 \
+  --learning-rate 0.001 \
+  --l1 0.01 \
+  --record-every 1000 \
   --seed "$SEED" \
   --device cuda

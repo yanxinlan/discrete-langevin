@@ -26,7 +26,7 @@ class IsingPipelineTests(unittest.TestCase):
         torch.testing.assert_close(self.model.gradient_x(x.detach()), automatic)
 
     def test_all_samplers_preserve_binary_shape(self):
-        for name in ("gibbs", "gwg", "dula", "dmala"):
+        for name in ("gibbs-1", "gibbs-4", "gwg-1", "gwg-4", "dula", "dmala"):
             result = build_sampler(name, 0.2).step(self.x, self.model)
             self.assertEqual(result.shape, self.x.shape)
             self.assertTrue(torch.all((result == 0) | (result == 1)))

@@ -8,7 +8,28 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-COLORS = {"gibbs": "#4C78A8", "gwg": "#F58518", "dula": "#54A24B", "dmala": "#E45756"}
+COLORS = {
+    "gibbs-1": "#4C78A8",
+    "gibbs-4": "#72A0C1",
+    "gwg-1": "#F58518",
+    "gwg-4": "#FFB55A",
+    "dula": "#54A24B",
+    "dmala": "#E45756",
+}
+
+LABELS = {
+    "gibbs-1": "Gibbs-1",
+    "gibbs-4": "Gibbs-4",
+    "gwg-1": "GWG-1",
+    "gwg-4": "GWG-4",
+    "dula": "DULA",
+    "dmala": "DMALA",
+}
+
+
+def sampler_from_run_name(name: str) -> str:
+    sampler = name.split("_seed", 1)[0]
+    return {"gibbs": "gibbs-1", "gwg": "gwg-1"}.get(sampler, sampler)
 
 
 def parse_args() -> argparse.Namespace:
@@ -19,8 +40,16 @@ def parse_args() -> argparse.Namespace:
 
 def sampling_runs(root: Path) -> dict[str, list[dict[str, np.ndarray]]]:
     runs: dict[str, list[dict[str, np.ndarray]]] = {}
+    selected: dict[tuple[str, str], Path] = {}
     for path in sorted((root / "sampling").glob("*.npz")):
-        sampler = path.stem.split("_")[0]
+        sampler = sampler_from_run_name(path.stem)
+        seed = path.stem.split("_seed", 1)[1] if "_seed" in path.stem else path.stem
+        key = (sampler, seed)
+        # Prefer the new explicit Gibbs-1/GWG-1 filenames over legacy aliases.
+        if key in selected and path.stem.startswith(("gibbs_", "gwg_")):
+            continue
+        selected[key] = path
+    for (sampler, _), path in sorted(selected.items()):
         with np.load(path) as values:
             runs.setdefault(sampler, []).append({key: values[key] for key in values.files})
     return runs
@@ -31,7 +60,7 @@ def learning_runs(root: Path) -> dict[str, list[list[dict]]]:
     for path in sorted((root / "learning").glob("*/metrics.jsonl")):
         records = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
         if records:
-            sampler = path.parent.name.split("_")[0]
+            sampler = sampler_from_run_name(path.parent.name)
             runs.setdefault(sampler, []).append(records)
     return runs
 
@@ -47,7 +76,7 @@ def plot_sampling(root: Path) -> None:
         mean = curves.mean(axis=0)
         std = curves.std(axis=0)
         color = COLORS.get(sampler)
-        axes[0].plot(steps, mean, label=sampler.upper(), color=color)
+        axes[0].plot(steps, mean, label=LABELS.get(sampler, sampler), color=color)
         axes[0].fill_between(steps, mean - std, mean + std, color=color, alpha=0.18)
         for run in sampler_runs:
             axes[1].plot(run["seconds"], run["log_rmse"], color=color, alpha=0.35)
@@ -69,7 +98,7 @@ def plot_learning(root: Path) -> None:
     for sampler, sampler_runs in sorted(runs.items()):
         color = COLORS.get(sampler)
         for index, records in enumerate(sampler_runs):
-            label = sampler.upper() if index == 0 else None
+            label = LABELS.get(sampler, sampler) if index == 0 else None
             axes[0].plot(
                 [row["iteration"] for row in records],
                 [row["log_rmse"] for row in records],

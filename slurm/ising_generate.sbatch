@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=120G
-#SBATCH --time=08:00:00
+#SBATCH --time=24:00:00
 #SBATCH --output=/projects/prjs1237/project/tabpfgen/discrete-langevin/slurm/logs/%x-%j.out
 #SBATCH --error=/projects/prjs1237/project/tabpfgen/discrete-langevin/slurm/logs/%x-%j.err
 
@@ -19,18 +19,18 @@ CONDA_ROOT="/home/xyan1/anaconda3"
 source "$CONDA_ROOT/etc/profile.d/conda.sh"
 conda activate tabpfgen
 
-PROJECT_ROOT="${PROJECT_ROOT:-$SLURM_SUBMIT_DIR}"
+# Self-contained Figure 5 data-generation configuration.
+PROJECT_ROOT="/projects/prjs1237/project/tabpfgen/discrete-langevin"
 PYTHON_BIN="$CONDA_PREFIX/bin/python"
+DATA_PATH="$PROJECT_ROOT/data/ising/lattice_25_coupling_0.25_gibbs1000000.pt"
 cd "$PROJECT_ROOT"
 
 srun "$PYTHON_BIN" -m ising_pipeline.generate_data \
-  --output "${ISING_DATA_PATH:-data/ising/lattice_25_coupling_0.25.pt}" \
-  --side "${ISING_SIDE:-25}" \
-  --coupling "${ISING_COUPLING:-0.25}" \
-  --bias "${ISING_BIAS:-0.0}" \
-  --num-samples "${ISING_NUM_SAMPLES:-2000}" \
-  --chains "${ISING_GENERATION_CHAINS:-256}" \
-  --burn-in-sweeps "${ISING_BURN_IN_SWEEPS:-1000}" \
-  --sweeps-between "${ISING_SWEEPS_BETWEEN:-20}" \
-  --seed "${ISING_DATA_SEED:-123456}" \
+  --output "$DATA_PATH" \
+  --side 25 \
+  --coupling 0.25 \
+  --bias 0.0 \
+  --num-samples 2000 \
+  --gibbs-steps 1000000 \
+  --seed 123456 \
   --device cuda

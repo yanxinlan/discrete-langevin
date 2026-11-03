@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=ising-fig3
-#SBATCH --array=0-3
+#SBATCH --array=0-17
 #SBATCH --partition=gpu_a100
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks=1
@@ -23,7 +23,7 @@ conda activate tabpfgen
 # Self-contained reproduction configuration. No environment variables are read.
 PROJECT_ROOT="/projects/prjs1237/project/tabpfgen/discrete-langevin"
 PYTHON_BIN="$CONDA_PREFIX/bin/python"
-OUTPUT_DIR="$PROJECT_ROOT/results/ising/figure3_sampling"
+OUTPUT_DIR="$PROJECT_ROOT/results/ising/figure3_sampling/sampling"
 
 # Paper/source settings:
 #   target: periodic 5x5 lattice, coupling a=0.1, bias b=0.2
@@ -35,29 +35,22 @@ COUPLING=0.1
 BIAS=0.2
 STEPS=50000
 CHAINS=2
-SEED=1234567
 RECORD_EVERY=1000
 EXACT_CHUNK_SIZE=1000000
 
-# This is the supported four-method subset, not the complete published Figure 3.
-# MISALIGNMENT: the published figure also contains Gibbs-4, GWG-4, HB-10-1,
-# LB-1, DSVGD, and RMALA. Those methods are not implemented by the added pipeline.
-SAMPLERS=(gibbs gwg dula dmala)
-STEP_SIZES=(1.0 1.0 0.2 0.4)
-SAMPLER="${SAMPLERS[$SLURM_ARRAY_TASK_ID]}"
-STEP_SIZE="${STEP_SIZES[$SLURM_ARRAY_TASK_ID]}"
+# Focused six-method reproduction with three seeds. The complete published
+# figure additionally contains HB-10-1, LB-1, DSVGD, and RMALA.
+SAMPLERS=(gibbs-1 gibbs-4 gwg-1 gwg-4 dula dmala)
+STEP_SIZES=(1.0 1.0 1.0 1.0 0.2 0.4)
+SAMPLER_INDEX="$((SLURM_ARRAY_TASK_ID % 6))"
+REPLICATE="$((SLURM_ARRAY_TASK_ID / 6))"
+SAMPLER="${SAMPLERS[$SAMPLER_INDEX]}"
+STEP_SIZE="${STEP_SIZES[$SAMPLER_INDEX]}"
+SEED="$((1234567 + REPLICATE))"
 
-# Known Python-level differences that cannot be selected with current CLI flags:
-# MISALIGNMENT: benchmark_sampling.py initializes Bernoulli(0.5); the released
-# original code initializes Bernoulli(sigmoid(2*b)) = Bernoulli(sigmoid(0.4)).
-# MISALIGNMENT: benchmark_sampling.py pools the two chains before RMSE; the
-# original code computes RMSE over separate per-chain running means.
-# MISALIGNMENT: its Gibbs kernel is fresh random-scan; the active original BG-1
-# kernel follows a randomly permuted coordinate order until a sweep is complete.
+# Remaining differences:
 # MISALIGNMENT: its ESS is based on recorded scalar magnetization; the original
 # computes per-coordinate ESS from every transition after 10% burn-in.
-# MISALIGNMENT: CUDA is not synchronized at timing boundaries, so runtime curves
-# are not directly comparable to the paper or across samplers.
 
 cd "$PROJECT_ROOT"
 mkdir -p "$OUTPUT_DIR"

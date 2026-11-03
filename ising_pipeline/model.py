@@ -64,11 +64,17 @@ class IsingModel(nn.Module):
 class LearnableIsingModel(nn.Module):
     """Dense symmetric Ising model used for parameter-recovery experiments."""
 
-    def __init__(self, dimension: int, init_scale: float = 0.01):
+    def __init__(self, dimension: int, init_scale: float = 0.01, learn_bias: bool = False):
         super().__init__()
         raw = torch.randn((dimension, dimension), dtype=torch.float32) * init_scale
         self.raw_coupling = nn.Parameter(raw)
-        self.bias = nn.Parameter(torch.zeros(dimension, dtype=torch.float32))
+        bias = torch.zeros(dimension, dtype=torch.float32)
+        if learn_bias:
+            self.bias = nn.Parameter(bias)
+        else:
+            # Figure 5 learns only W; the released lattice_ising_2d model keeps
+            # its zero bias fixed.
+            self.register_buffer("bias", bias)
         self.register_buffer("off_diagonal", 1.0 - torch.eye(dimension, dtype=torch.float32))
 
     @property

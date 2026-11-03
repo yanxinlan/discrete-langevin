@@ -22,7 +22,11 @@ from .samplers import build_sampler
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Benchmark a sampler on a lattice Ising target.")
     parser.add_argument("--output", type=Path, required=True, help="Output .npz file.")
-    parser.add_argument("--sampler", choices=("gibbs", "gwg", "dula", "dmala"), required=True)
+    parser.add_argument(
+        "--sampler",
+        choices=("gibbs", "gibbs-1", "gibbs-4", "gwg", "gwg-1", "gwg-4", "dula", "dmala"),
+        required=True,
+    )
     parser.add_argument("--side", type=int, default=5)
     parser.add_argument("--coupling", type=float, default=0.1)
     parser.add_argument("--bias", type=float, default=0.2)
@@ -35,7 +39,25 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--reference-burn-in-sweeps", type=int, default=2000)
     parser.add_argument("--reference-sweeps", type=int, default=200)
     parser.add_argument("--exact-chunk-size", type=int, default=1_000_000)
+    parser.add_argument(
+        "--reference-device",
+        choices=("same", "cpu"),
+        default="same",
+        help="Device used for exact enumeration; CPU is required when sampling on Apple MPS.",
+    )
+    parser.add_argument(
+        "--reference-cache",
+        type=Path,
+        default=None,
+        help="Optional .npz cache for the exact reference mean and log partition.",
+    )
     parser.add_argument("--seed", type=int, default=1234567)
+    parser.add_argument(
+        "--initialization",
+        choices=("paper", "uniform"),
+        default="paper",
+        help="paper uses Bernoulli(logits=2*b); uniform reproduces the older added pipeline",
+    )
     parser.add_argument("--device", default="auto")
     return parser.parse_args()
 
@@ -47,7 +69,40 @@ def default_step_size(sampler: str) -> float:
 @torch.no_grad()
 def reference_mean(args: argparse.Namespace, model) -> tuple[torch.Tensor, float | None]:
     if args.reference == "exact":
-        return exact_mean(model, args.exact_chunk_size)
+        if args.reference_cache is not None and args.reference_cache.exists():
+            with np.load(args.reference_cache) as payload:
+                cached_config = (
+                    int(payload["side"]),
+                    float(payload["coupling"]),
+                    float(payload["bias"]),
+                )
+                requested_config = (args.side, args.coupling, args.bias)
+                if cached_config != requested_config:
+                    raise ValueError(
+                        f"reference cache has configuration {cached_config}, "
+                        f"but the requested configuration is {requested_config}"
+                    )
+                truth = torch.from_numpy(payload["reference_mean"]).to(model.coupling.device)
+                return truth, float(payload["log_partition"].item())
+
+        if args.reference_device == "cpu" and model.coupling.device.type != "cpu":
+            reference_model = make_lattice_model(
+                args.side, args.coupling, args.bias, torch.device("cpu")
+            )
+        else:
+            reference_model = model
+        truth, log_z = exact_mean(reference_model, args.exact_chunk_size)
+        if args.reference_cache is not None:
+            args.reference_cache.parent.mkdir(parents=True, exist_ok=True)
+            np.savez_compressed(
+                args.reference_cache,
+                reference_mean=truth.cpu().numpy(),
+                log_partition=np.asarray(log_z),
+                side=np.asarray(args.side),
+                coupling=np.asarray(args.coupling),
+                bias=np.asarray(args.bias),
+            )
+        return truth.to(model.coupling.device), log_z
     states = torch.bernoulli(
         torch.full((args.reference_chains, model.dimension), 0.5, device=model.coupling.device)
     )
@@ -67,7 +122,11 @@ def main() -> None:
     truth, log_z = reference_mean(args, model)
     step_size = args.step_size if args.step_size is not None else default_step_size(args.sampler)
     sampler = build_sampler(args.sampler, step_size)
-    state = torch.bernoulli(torch.full((args.chains, model.dimension), 0.5, device=device))
+    if args.initialization == "paper":
+        initial_probability = torch.sigmoid(2.0 * model.bias)
+    else:
+        initial_probability = torch.full((model.dimension,), 0.5, device=device)
+    state = torch.bernoulli(initial_probability.expand(args.chains, -1))
 
     recorded_steps: list[int] = []
     elapsed: list[float] = []
@@ -76,7 +135,8 @@ def main() -> None:
     proposed_hops: list[float] = []
     realized_hops: list[float] = []
     magnetization: list[float] = []
-    spin_sum = torch.zeros(model.dimension, device=device)
+    # Keep a separate running mean for every chain, as in the released script.
+    spin_sum = torch.zeros_like(state)
     observations = 0
     interval_acceptance = 0.0
     interval_proposed = 0.0
@@ -86,8 +146,8 @@ def main() -> None:
 
     for step in range(1, args.steps + 1):
         state = sampler.step(state, model)
-        spin_sum += (2.0 * state - 1.0).sum(dim=0)
-        observations += state.shape[0]
+        spin_sum += 2.0 * state - 1.0
+        observations += 1
         interval_acceptance += sampler.last_acceptance
         interval_proposed += sampler.last_proposed_hops
         interval_realized += sampler.last_hops
@@ -119,7 +179,7 @@ def main() -> None:
         reference_mean=truth.cpu().numpy(),
     )
     summary = {
-        "sampler": args.sampler,
+        "sampler": sampler.name,
         "step_size": step_size,
         "seed": args.seed,
         "side": args.side,
@@ -129,6 +189,9 @@ def main() -> None:
         "steps": args.steps,
         "chains": args.chains,
         "reference": args.reference,
+        "reference_device": args.reference_device,
+        "reference_cache": str(args.reference_cache) if args.reference_cache else None,
+        "initialization": args.initialization,
         "log_partition": log_z,
         "final_log_rmse": log_rmse[-1],
         "mean_acceptance": float(np.mean(acceptance)),

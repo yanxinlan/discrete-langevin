@@ -12,10 +12,19 @@ from .model import IsingModel, lattice_adjacency
 
 def choose_device(requested: str) -> torch.device:
     if requested == "auto":
-        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        if torch.cuda.is_available():
+            return torch.device("cuda")
+        if torch.backends.mps.is_available():
+            return torch.device("mps")
+        return torch.device("cpu")
     device = torch.device(requested)
     if device.type == "cuda" and not torch.cuda.is_available():
         raise RuntimeError("CUDA was requested but is not available")
+    if device.type == "mps" and not torch.backends.mps.is_available():
+        raise RuntimeError(
+            "Apple MPS was requested but is not available; use an Apple-silicon "
+            "Python/PyTorch build and run outside environments that block Metal"
+        )
     return device
 
 
@@ -67,6 +76,36 @@ def gibbs_sweeps(x: torch.Tensor, model, sweeps: int) -> torch.Tensor:
             affected = neighbors[coordinate_index]
             if affected.numel() > 0:
                 local_field[:, affected] += spin_change[:, None] * coupling[coordinate_index, affected][None, :]
+    return (spins + 1.0) / 2.0
+
+
+@torch.no_grad()
+def cyclic_gibbs_steps(
+    x: torch.Tensor, model, steps: int, *, progress_every: int = 0
+) -> torch.Tensor:
+    """Run the released code's deterministic-scan, one-coordinate Gibbs steps."""
+    spins = 2.0 * x - 1.0
+    coupling = model.coupling.detach()
+    bias = model.bias.detach()
+    local_field = spins @ coupling
+    neighbors = [
+        torch.nonzero(coupling[row], as_tuple=False).flatten()
+        for row in range(model.dimension)
+    ]
+    for step in range(steps):
+        coordinate = step % model.dimension
+        old_spin = spins[:, coordinate]
+        delta = -4.0 * old_spin * local_field[:, coordinate] - 2.0 * bias[coordinate] * old_spin
+        flip = torch.bernoulli(torch.sigmoid(delta)).bool()
+        spin_change = torch.where(flip, -2.0 * old_spin, torch.zeros_like(old_spin))
+        spins[:, coordinate] += spin_change
+        affected = neighbors[coordinate]
+        if affected.numel() > 0:
+            local_field[:, affected] += (
+                spin_change[:, None] * coupling[coordinate, affected][None, :]
+            )
+        if progress_every and (step + 1) % progress_every == 0:
+            print(f"completed {step + 1:,}/{steps:,} Gibbs coordinate updates", flush=True)
     return (spins + 1.0) / 2.0
 
 
