@@ -12,9 +12,13 @@
 
 set -euo pipefail
 
+CONDA_ROOT="/home/xyan1/anaconda3"
+source "$CONDA_ROOT/etc/profile.d/conda.sh"
+conda activate tabpfgen
+
 # Self-contained reproduction configuration. No environment variables are read.
 PROJECT_ROOT="/projects/prjs1237/project/tabpfgen/discrete-langevin"
-PYTHON_BIN="python"
+PYTHON_BIN="$CONDA_PREFIX/bin/python"
 OUTPUT_DIR="$PROJECT_ROOT/results/ising/figure2_stepsize_acceptance"
 
 # Explicit paper settings for Figure 2 (left):

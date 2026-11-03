@@ -12,8 +12,12 @@
 
 set -euo pipefail
 
+CONDA_ROOT="/home/xyan1/anaconda3"
+source "$CONDA_ROOT/etc/profile.d/conda.sh"
+conda activate tabpfgen
+
 PROJECT_ROOT="${PROJECT_ROOT:-$SLURM_SUBMIT_DIR}"
-PYTHON_BIN="${PYTHON_BIN:-python}"
+PYTHON_BIN="$CONDA_PREFIX/bin/python"
 SAMPLERS=(gibbs gwg dula dmala)
 SAMPLER="${SAMPLERS[$((SLURM_ARRAY_TASK_ID % 4))]}"
 REPLICATE="$((SLURM_ARRAY_TASK_ID / 4))"

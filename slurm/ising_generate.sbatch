@@ -11,8 +11,12 @@
 
 set -euo pipefail
 
+CONDA_ROOT="/home/xyan1/anaconda3"
+source "$CONDA_ROOT/etc/profile.d/conda.sh"
+conda activate tabpfgen
+
 PROJECT_ROOT="${PROJECT_ROOT:-$SLURM_SUBMIT_DIR}"
-PYTHON_BIN="${PYTHON_BIN:-python}"
+PYTHON_BIN="$CONDA_PREFIX/bin/python"
 cd "$PROJECT_ROOT"
 
 srun "$PYTHON_BIN" -m ising_pipeline.generate_data \
