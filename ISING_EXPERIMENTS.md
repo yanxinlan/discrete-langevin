@@ -81,17 +81,19 @@ python -m ising_pipeline.plot_results --results-root results/ising/figure3_sampl
 ## Slurm: full sampling and learning pipeline
 
 Create the log directory before submitting jobs. The convenience script does
-this and submits data generation, sampling, and learning:
+this, submits Figure 5 data generation, and then starts learning only after the
+dataset job succeeds:
 
 ```bash
 bash slurm/submit_ising_pipeline.sh
 ```
 
-The sampling array has 18 tasks: six samplers (`Gibbs-1`, `Gibbs-4`, `GWG-1`,
-`GWG-4`, DULA, and DMALA) times three seeds. The learning array has 12 tasks:
-the four Figure 5 methods times three seeds. Data generation is a dependency
-of learning. All paper settings and the cluster root are fixed inside the
-Slurm files; they do not depend on exported experiment variables.
+The independent Figure 3 sampling wrapper described above submits an 18-task
+array: six samplers (`Gibbs-1`, `Gibbs-4`, `GWG-1`, `GWG-4`, DULA, and DMALA)
+times three seeds. The Figure 5 learning pipeline submits one data-generation
+job followed by a 12-task learning array: four samplers times three seeds. All
+paper settings and the cluster root are fixed inside the Slurm files; they do
+not depend on exported experiment variables.
 
 Cluster-specific account, partition, module, or container settings should be
 added to the three `.sbatch` files. Every task requests one GPU. The 5 by 5
