@@ -1,0 +1,5 @@
+dataset,sampler,paper_test_log_likelihood,reproduced_test_log_likelihood,difference,ais_log
+static_mnist,dula,-80.71,-81.84036254882812,-1.1303625488281313,results/deep_ebm/static_mnist/dula/ais_log.txt
+static_mnist,dmala,-79.46,-80.30718994140625,-0.8471899414062563,results/deep_ebm/static_mnist/dmala/ais_log.txt
+omniglot,dula,-145.68,-148.015625,-2.335624999999993,results/deep_ebm/omniglot/dula/ais_log.txt
+omniglot,dmala,-91.11,-91.49237060546875,-0.38237060546875057,results/deep_ebm/omniglot/dmala/ais_log.txt
