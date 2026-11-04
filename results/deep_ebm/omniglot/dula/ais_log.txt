@@ -1,0 +1,66 @@
+Loading data
+Making Model
+Getting init batch
+cuda:0
+EBM(
+  (net): ResNetEBM(
+    (proj): Conv2d(1, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (net): Sequential(
+      (0): BasicBlock(
+        (nonlin1): Swish()
+        (nonlin2): Swish()
+        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (shortcut_conv): Conv2d(64, 64, kernel_size=(1, 1), stride=(2, 2))
+      )
+      (1): BasicBlock(
+        (nonlin1): Swish()
+        (nonlin2): Swish()
+        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (shortcut_conv): Conv2d(64, 64, kernel_size=(1, 1), stride=(2, 2))
+      )
+      (2): BasicBlock(
+        (nonlin1): Swish()
+        (nonlin2): Swish()
+        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (3): BasicBlock(
+        (nonlin1): Swish()
+        (nonlin2): Swish()
+        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (4): BasicBlock(
+        (nonlin1): Swish()
+        (nonlin2): Swish()
+        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (5): BasicBlock(
+        (nonlin1): Swish()
+        (nonlin2): Swish()
+        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (6): BasicBlock(
+        (nonlin1): Swish()
+        (nonlin2): Swish()
+        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+      (7): BasicBlock(
+        (nonlin1): Swish()
+        (nonlin2): Swish()
+        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      )
+    )
+    (energy_linear): Linear(in_features=64, out_features=1, bias=True)
+  )
+)
+DiffSampler()
+EMA Train log-likelihood: -147.21408081054688
+EMA Valid log-likelihood: -148.40093994140625
+EMA Test log-likelihood: -148.015625
