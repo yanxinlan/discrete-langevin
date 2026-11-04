@@ -6,7 +6,6 @@ from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
-import rbm
 import samplers
 from tqdm import tqdm
 import os
@@ -101,6 +100,10 @@ def get_data(args):
 
 
 def generate_data(args):
+    # The RBM/Ising utilities need python-igraph, but the deep EBM experiments do
+    # not.  Import lazily so Table 1 can run with the smaller EBM dependency set.
+    import rbm
+
     if args.data_model == "lattice_potts":
         model = rbm.LatticePottsModel(args.dim, args.n_state, args.sigma)
         sampler = samplers.PerDimMetropolisSampler(model.data_dim, args.n_out, rand=False)

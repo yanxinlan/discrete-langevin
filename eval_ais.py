@@ -20,11 +20,13 @@ def makedirs(dirname):
 
 def main(args):
     makedirs(args.save_dir)
-    logger = open("{}/log.txt".format(args.save_dir), 'w')
+    # Keep final AIS output separate from the training log.
+    logger = open("{}/ais_log.txt".format(args.save_dir), 'w')
 
     def my_print(s):
         print(s)
         logger.write(str(s) + '\n')
+        logger.flush()
 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
@@ -71,7 +73,8 @@ def main(args):
         model = EBM(net)
 
     # d = torch.load("{}/best_ckpt_{}_{}.pt".format(args.save_dir,args.eval_sampler,args.eval_step_size))
-    d = torch.load("{}/best_ckpt_{}_{}_{}.pt".format(args.save_dir,args.dataset_name,args.eval_sampler,args.eval_step_size))
+    d = torch.load("{}/best_ckpt_{}_{}_{}.pt".format(args.save_dir,args.dataset_name,args.eval_sampler,args.eval_step_size),
+                   map_location="cpu", weights_only=False)
     # d = torch.load("{}/best_ckpt_{}_{}_{}_{}.pt".format(args.save_dir,args.dataset_name,args.eval_sampler,args.eval_step_size,args.sampling_steps))
 
 

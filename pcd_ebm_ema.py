@@ -155,7 +155,7 @@ def main(args):
     ema_model = copy.deepcopy(model)
 
     if args.ckpt_path is not None:
-        d = torch.load(args.ckpt_path)
+        d = torch.load(args.ckpt_path, map_location="cpu", weights_only=False)
         model.load_state_dict(d['model'])
         ema_model.load_state_dict(d['ema_model'])
         #optimizer.load_state_dict(d['optimizer'])
@@ -274,6 +274,10 @@ def main(args):
                 model.to(device)
 
             itr += 1
+            # Omniglot's epoch length does not divide 50,000.  The original loop
+            # otherwise finishes the epoch and exceeds the paper's iteration count.
+            if itr >= args.n_iters:
+                break
     np.save("{}/test_ll_{}_{}_{}.npy".format(args.save_dir,args.dataset_name,args.sampler,args.step_size),test_ll_list)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
