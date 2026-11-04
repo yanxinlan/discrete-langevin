@@ -1,7 +1,5 @@
 import torch
 import torch.nn as nn
-import torchvision
-import torchvision.transforms as tr
 from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
 import matplotlib.pyplot as plt
@@ -65,6 +63,11 @@ def short_run_mcmc(logp_net, x_init, k, sigma, step_size=None):
 
 
 def get_data(args):
+    # Only the legacy MNIST/synthetic visualization paths require torchvision.
+    # Deep EBM Static MNIST and Omniglot experiments do not call this function.
+    import torchvision
+    import torchvision.transforms as tr
+
     if args.data == "mnist":
         transform = tr.Compose([tr.Resize(args.img_size), tr.ToTensor(), lambda x: (x > .5).float().view(-1)])
         train_data = torchvision.datasets.MNIST(root="../data", train=True, transform=transform, download=True)

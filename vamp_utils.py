@@ -2,7 +2,6 @@ from __future__ import print_function
 
 import torch
 import torch.utils.data as data_utils
-import torchvision
 
 import numpy as np
 
@@ -407,6 +406,7 @@ def load_dataset(args, **kwargs):
     return train_loader, val_loader, test_loader, args
 
 if __name__ == "__main__":
+    import torchvision
     import matplotlib.pyplot as plt
     from sklearn.preprocessing import QuantileTransformer
     class A():

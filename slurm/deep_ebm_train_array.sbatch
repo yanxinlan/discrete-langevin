@@ -47,13 +47,11 @@ echo "CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-unset}"
 nvidia-smi -L
 "$PYTHON_BIN" - <<'PY'
 import torch
-import torchvision
 import numpy
 import scipy
 import tqdm
 import matplotlib
 print("PyTorch:", torch.__version__)
-print("torchvision:", torchvision.__version__)
 print("CUDA available:", torch.cuda.is_available())
 if not torch.cuda.is_available():
     raise RuntimeError("This job received no CUDA-capable PyTorch device")

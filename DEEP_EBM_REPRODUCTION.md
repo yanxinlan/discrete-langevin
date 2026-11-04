@@ -51,9 +51,11 @@ Static MNIST is already binarized. Omniglot training examples are dynamically
 binarized each epoch; validation and test examples use the original loader's
 fixed NumPy seed 777.
 
-The `tabpfgen` environment must provide `torch`, `torchvision`, `numpy`, `scipy`,
-`tqdm`, and `matplotlib`. Both Slurm jobs check these imports and CUDA before
-starting the expensive run.
+The `tabpfgen` environment must provide `torch`, `numpy`, `scipy`, `tqdm`, and
+`matplotlib`. Both Slurm jobs check these imports and CUDA before starting the
+expensive run. The original code used `torchvision` only to write image grids;
+the reproduction uses `ebm_image_utils.py` instead so no matching torchvision
+binary is required.
 
 ## Submit
 

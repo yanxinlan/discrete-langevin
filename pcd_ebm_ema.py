@@ -6,12 +6,12 @@ import samplers
 import block_samplers
 import torch.nn as nn
 import os
-import torchvision
 device = torch.device('cuda:' + str(0) if torch.cuda.is_available() else 'cpu')
 import vamp_utils
 import ais
 import copy
 import time
+from ebm_image_utils import save_image_grid
 
 
 def makedirs(dirname):
@@ -98,9 +98,9 @@ def main(args):
 
     # load data
     train_loader, val_loader, test_loader, args = vamp_utils.load_dataset(args)
-    plot = lambda p, x: torchvision.utils.save_image(x.view(x.size(0),
-                                                            args.input_size[0], args.input_size[1], args.input_size[2]),
-                                                     p, normalize=True, nrow=int(x.size(0) ** .5))
+    plot = lambda p, x: save_image_grid(
+        x, p, args.input_size, normalize=True, nrow=int(x.size(0) ** .5)
+    )
     def preprocess(data):
         if args.dynamic_binarization:
             return torch.bernoulli(data)
