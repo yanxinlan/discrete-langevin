@@ -43,6 +43,10 @@ This creates exactly the paths expected by `vamp_utils.py`:
 - `datasets/MNIST_static/binarized_mnist_{train,valid,test}.amat`
 - `datasets/OMNIGLOT/chardata.mat`
 
+Static MNIST is downloaded from Hugo Larochelle's benchmark host. The script
+validates the expected 50,000/10,000/10,000 rows and 784 columns before reporting
+success.
+
 Static MNIST is already binarized. Omniglot training examples are dynamically
 binarized each epoch; validation and test examples use the original loader's
 fixed NumPy seed 777.
