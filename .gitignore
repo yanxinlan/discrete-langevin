@@ -3,5 +3,5 @@ __pycache__/
 
 # Generated Ising artifacts
 data/ising/
-results/ising/
+# results/ising/
 slurm/logs/

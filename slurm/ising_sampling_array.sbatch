@@ -12,8 +12,8 @@
 
 set -euo pipefail
 
-# The job requests node-level memory with --mem. Clear incompatible inherited
-# memory-mode variables before launching the single process in this allocation.
+# The job requests node-level memory with --mem. Clear memory-mode variables
+# that may be inherited from the shell that called sbatch; srun rejects mixtures.
 unset SLURM_MEM_PER_CPU SLURM_MEM_PER_GPU
 
 CONDA_ROOT="/home/xyan1/anaconda3"
@@ -55,7 +55,7 @@ SEED="$((1234567 + REPLICATE))"
 cd "$PROJECT_ROOT"
 mkdir -p "$OUTPUT_DIR"
 
-"$PYTHON_BIN" -m ising_pipeline.benchmark_sampling \
+srun "$PYTHON_BIN" -m ising_pipeline.benchmark_sampling \
   --output "$OUTPUT_DIR/${SAMPLER}_seed${SEED}.npz" \
   --sampler "$SAMPLER" \
   --side "$SIDE" \
