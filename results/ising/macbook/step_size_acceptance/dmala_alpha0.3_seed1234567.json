@@ -1,0 +1,23 @@
+{
+  "bias": 0.2,
+  "chains": 2,
+  "coupling": 0.1,
+  "device": "mps",
+  "dimension": 25,
+  "final_log_rmse": -4.59820556640625,
+  "initialization": "paper",
+  "log_partition": 19.67408590838861,
+  "magnetization_ess": 4784.206700414211,
+  "mean_acceptance": 0.80441,
+  "mean_proposed_hops": 3.16465,
+  "mean_realized_hops": 2.47041,
+  "reference": "exact",
+  "reference_cache": "/Users/x.yan/Github/discrete-langevin/results/ising/macbook/exact_reference_5x5_a0.1_b0.2.npz",
+  "reference_device": "cpu",
+  "sampler": "dmala",
+  "seconds": 165.72146691599846,
+  "seed": 1234567,
+  "side": 5,
+  "step_size": 0.3,
+  "steps": 50000
+}
